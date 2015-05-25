@@ -1,0 +1,16 @@
+[core]
+	editor = vim
+	autocrlf = true
+	text = auto
+	excludesfile = C:\\Users\\jeyou_000/.gitignore
+[user]
+	name = Eddy Young
+	email = jeyoung@priscimon.com
+[push]
+	default = simple
+[color]
+	ui = auto
+[http]
+	sslVerify = false
+[alias]
+	log = log --decorate --graph

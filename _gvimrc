@@ -1,0 +1,18 @@
+set guifont=Consolas:h12:cDEFAULT
+set mousehide
+
+set columns=160
+set lines=35
+
+colorscheme simplon
+set background=light
+
+set guioptions-=T
+
+if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+  let &listchars = "tab:→\ ,trail:·,extends:»,precedes:«"
+  let &fillchars = "vert:¦"
+  let &showbreak = "¬\ "
+else
+  set listchars=tab:→\ ,trail:·,extends:»,precedes:«
+endif
