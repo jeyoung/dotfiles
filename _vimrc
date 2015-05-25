@@ -2,7 +2,7 @@ source $VIMRUNTIME/vimrc_example.vim
 
 filetype plugin indent on
 if has('autocmd')
-    autocmd filetype * set omnifunc=syntaxcomplete#Complete
+    autocmd FileType * set omnifunc=syntaxcomplete#Complete
 endif
 
 set path=.,**
