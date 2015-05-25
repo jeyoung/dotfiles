@@ -12,5 +12,12 @@
 	ui = auto
 [http]
 	sslVerify = false
-[alias]
-	log = log --decorate --graph
+
+[merge]
+    tool = kdiff3
+
+[mergetool.kdiff3]
+    path = "C:\\Program Files\\kdiff3\\kdiff3.exe"
+
+
+
