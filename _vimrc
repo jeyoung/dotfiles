@@ -191,7 +191,3 @@ noremap <leader>P "*P
 colorscheme blue
 set background=dark
 
-"Shell
-set shell=powershell.exe
-set shellcmdflag=-command
-
