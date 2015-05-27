@@ -125,6 +125,16 @@ if version >= 700
 endif
 
 "Line wrapping
+if has('gui')
+    if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
+        let &listchars = "tab:→\ ,trail:·,extends:»,precedes:«"
+        let &fillchars = "vert:¦"
+        let &showbreak = "¬\ "
+    else
+        set listchars=tab:→\ ,trail:·,extends:»,precedes:«
+    endif
+endif
+
 set textwidth=79
 set wrap
 set linebreak
@@ -188,6 +198,15 @@ noremap <leader>p "*p
 noremap <leader>P "*P
 
 "Colorscheme
-colorscheme blue
-set background=dark
+if has('gui')
+    colorscheme default
+    set background=light
+else
+    colorscheme blue
+    set background=dark
+endif
 
+"Turn off toolbar in GUI
+if has('gui')
+    set guioptions-=T
+endif
