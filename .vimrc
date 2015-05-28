@@ -210,3 +210,16 @@ endif
 if has('gui')
     set guioptions-=T
 endif
+
+set guifont=Consolas:h11
+
+" Commenting blocks of code.
+autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
+autocmd FileType sh,ruby,python,perl   let b:comment_leader = '# '
+autocmd FileType conf,fstab       let b:comment_leader = '# '
+autocmd FileType tex              let b:comment_leader = '% '
+autocmd FileType mail             let b:comment_leader = '> '
+autocmd FileType sql             let b:comment_leader = '-- '
+autocmd FileType vim              let b:comment_leader = '" '
+noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\(\s*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
