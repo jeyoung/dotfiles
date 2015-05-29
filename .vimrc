@@ -66,8 +66,8 @@ set formatoptions=qrn1
 
 set backspace=indent,eol,start
 
-"Key mappings
-let mapleader=","
+"Map leader
+
 
 "Search
 nnoremap <silent> <leader><Space> :set nohlsearch!<CR>
@@ -202,7 +202,7 @@ if has('gui')
     colorscheme default
     set background=light
 else
-    colorscheme blue
+    colorscheme darkblue
     set background=dark
 endif
 
