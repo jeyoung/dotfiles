@@ -22,7 +22,7 @@ if has('autocmd')
     autocmd FileType * set omnifunc=syntaxcomplete#Complete
 endif
 
-if has('syntax') && !exists('g:sintax_on')
+if has('syntax') && !exists('g:syntax_on')
     syntax enable
     :map <F7> :if exists("g:syntax_on") <Bar>
                 \   syntax off <Bar>
@@ -33,7 +33,7 @@ endif
 
 "General settings
 set cmdheight=1
-set display=lastline
+set display+=lastline
 set hidden
 set showmode
 set showcmd
@@ -71,9 +71,6 @@ set formatoptions=qrn1j
 set backspace=indent,eol,start
 
 "Search
-if maparg('<C-L>', 'n') ==# ''
-    nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
-endif
 nnoremap <silent> <Esc> <Esc>:noh<Cr>
 nnoremap n nzz
 nnoremap N Nzz
@@ -194,24 +191,23 @@ if has('gui')
     colorscheme default
     set background=light
 else
-    colorscheme darkblue
+    colorscheme blue
     set background=dark
 endif
 
-"Turn off toolbar in GUI
+"Other GUI options
 if has('gui')
     set guioptions-=T
+    set guifont=Consolas:h11
 endif
-
-set guifont=Consolas:h11
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
-autocmd FileType sh,ruby,python,perl   let b:comment_leader = '# '
-autocmd FileType conf,fstab       let b:comment_leader = '# '
-autocmd FileType tex              let b:comment_leader = '% '
-autocmd FileType mail             let b:comment_leader = '> '
-autocmd FileType sql             let b:comment_leader = '-- '
-autocmd FileType vim              let b:comment_leader = '" '
+autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
+autocmd FileType conf,fstab let b:comment_leader = '# '
+autocmd FileType tex let b:comment_leader = '% '
+autocmd FileType mail let b:comment_leader = '> '
+autocmd FileType sql let b:comment_leader = '-- '
+autocmd FileType vim let b:comment_leader = '" '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\(\s*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
