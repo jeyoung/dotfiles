@@ -147,6 +147,11 @@ map ][ /}<CR>b99]}
 map ]] j0[[%/{<CR>
 map [] k$][%?}<CR>
 
+nnoremap <Tab> }
+nnoremap <S-Tab> {
+vnoremap <Tab> }
+vnoremap <S-Tab> {
+
 "Movement fix
 nnoremap j gj
 nnoremap k gk
