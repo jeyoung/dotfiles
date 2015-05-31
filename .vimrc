@@ -194,10 +194,8 @@ endif
 
 if has('gui')
     colorscheme default
-    set background=light
 else
-    colorscheme blue
-    set background=dark
+    colorscheme default
 endif
 
 "Other GUI options
