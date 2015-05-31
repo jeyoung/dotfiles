@@ -194,6 +194,7 @@ endif
 
 if has('gui')
     colorscheme default
+    set background=light
 else
     colorscheme default
 endif
