@@ -1,10 +1,5 @@
 source $VIMRUNTIME/vimrc_example.vim
 
-filetype plugin indent on
-if has('autocmd')
-    autocmd FileType * set omnifunc=syntaxcomplete#Complete
-endif
-
 set path=.,**
 set wildignore=*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
@@ -17,16 +12,24 @@ set writebackup
 set directory=~/vimfiles/swap,$TMP
 set swapfile
 
-syntax enable
-:map <F7> :if exists("g:syntax_on") <Bar>
-\   syntax off <Bar>
-\ else <Bar>
-\   syntax enable <Bar>
-\ endif <CR>
-
 "File settings
 set encoding=utf-8
 set modelines=1
+
+"Options based on filetypes
+if has('autocmd')
+    filetype plugin indent on
+    autocmd FileType * set omnifunc=syntaxcomplete#Complete
+endif
+
+if has('syntax') && !exists('g:sintax_on')
+    syntax enable
+    :map <F7> :if exists("g:syntax_on") <Bar>
+                \   syntax off <Bar>
+                \ else <Bar>
+                \   syntax enable <Bar>
+                \ endif <CR>
+endif
 
 "General settings
 set cmdheight=1
@@ -46,6 +49,7 @@ set scrolloff=5
 set sidescroll=5
 set sidescrolloff=5
 set virtualedit=block
+set display+=lastline
 
 set gdefault
 set hlsearch
@@ -62,15 +66,14 @@ set softtabstop=4
 set smarttab
 set tabstop=4
 
-set formatoptions=qrn1
+set formatoptions=qrn1j
 
 set backspace=indent,eol,start
 
-"Map leader
-
-
 "Search
-nnoremap <silent> <leader><Space> :set nohlsearch!<CR>
+if maparg('<C-L>', 'n') ==# ''
+    nnoremap <silent> <C-L> :nohlsearch<CR><C-L>
+endif
 nnoremap <silent> <Esc> <Esc>:noh<Cr>
 nnoremap n nzz
 nnoremap N Nzz
@@ -81,10 +84,6 @@ nnoremap g# g#zz
 
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
-
-"Formatting
-nnoremap <silent> <leader>f gqip$
-vnoremap <silent> <leader>f gq
 
 inoremap jj <Esc>
 
@@ -135,15 +134,11 @@ if has('gui')
     endif
 endif
 
-set textwidth=79
+set textwidth=78
 set wrap
 set linebreak
 set nolist
-
 nnoremap <silent> <leader>l :setlocal wrap! linebreak! list!<Cr>:setlocal wrap? linebreak? list?<Cr>
-
-"Tag
-nnoremap <leader>t :tag<Space>
 
 "Completion
 inoremap <C-o> <C-X><C-o>
@@ -173,21 +168,14 @@ if version >= 700
     augroup END
 endif
 
-"Find
-nnoremap <leader>. :find<Space>
-
-"Delete buffer
-nnoremap <leader>d :bdel<Cr>
-
 "Vimgrep
 if executable('findstr')
     set grepprg=C:\\Utilities\\findstr2\\fs.bat
 endif
 nnoremap <leader>g :grep<Space>"\<<cword>\>" *.*<Cr>:cw<Cr>
-nnoremap <leader>G :grep<Space>
 
 "Repeat command
-nnoremap <leader>@ @:
+nnoremap <leader>. @:
 
 "Y
 nnoremap Y yg_
@@ -198,6 +186,10 @@ noremap <leader>p "*p
 noremap <leader>P "*P
 
 "Colorscheme
+if &t_Co == 8 && $TERM !~# '^linux'
+    set t_Co=16
+endif
+
 if has('gui')
     colorscheme default
     set background=light
