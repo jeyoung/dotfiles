@@ -121,7 +121,7 @@ if version >= 700
 endif
 
 "Line wrapping
-if has('gui')
+if has('gui_running')
     if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
         let &listchars = "tab:→\ ,trail:·,extends:»,precedes:«"
         let &fillchars = "vert:¦"
@@ -196,11 +196,12 @@ if has('gui_running')
     colorscheme default
     set background=light
 else
-    colorscheme default
+    colorscheme blue
+    set background=dark
 endif
 
 "Other GUI options
-if has('gui')
+if has('gui_running')
     set guioptions-=T
     set guifont=Consolas:h11
 endif
