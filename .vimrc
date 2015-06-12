@@ -192,7 +192,7 @@ if &t_Co == 8 && $TERM !~# '^linux'
     set t_Co=16
 endif
 
-if has('gui')
+if has('gui_running')
     colorscheme default
     set background=light
 else
