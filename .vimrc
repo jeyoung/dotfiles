@@ -143,7 +143,8 @@ if has('gui_running')
     if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
         let &listchars = "tab:→\ ,trail:·,extends:»,precedes:«"
         let &fillchars = "vert:¦"
-        let &showbreak = "¬\ "
+        "let &showbreak = "¬\ "
+        let &showbreak = "↳ "
     else
         set listchars=tab:→\ ,trail:·,extends:»,precedes:«
     endif
@@ -152,8 +153,10 @@ endif
 set textwidth=78
 set wrap
 set linebreak
+set breakindent
 set nolist
-nnoremap <silent> <leader>l :setlocal wrap! linebreak! list!<Cr>:setlocal wrap? linebreak? list?<Cr>
+set cpoptions+=n
+nnoremap <silent> <leader>l :setlocal wrap! linebreak! breakindent! list!<Cr>:setlocal wrap? linebreak? breakindent? list?<Cr>
 
 "Completion
 inoremap <C-o> <C-X><C-o>
