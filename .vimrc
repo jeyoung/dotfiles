@@ -1,5 +1,11 @@
 source $VIMRUNTIME/vimrc_example.vim
 
+if has('gui_running')
+    source $VIMRUNTIME/mswin.vim
+    unmap  <C-Y>|             " <C-Y> for Redo is kept in insert mode
+    iunmap <C-A>|             " <C-A> for Select-All is kept in normal mode
+endif
+
 set path=.,**
 set wildignore=*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
@@ -14,7 +20,7 @@ set swapfile
 
 "Persistent undo
 if has('persistent_undo')
-    set undodir=~\vimfiles\vim_undo_files
+    set undodir=~/vimfiles/undo
     set undofile
 endif
 
