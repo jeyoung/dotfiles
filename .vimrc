@@ -12,6 +12,17 @@ set writebackup
 set directory=~/vimfiles/swap,$TMP
 set swapfile
 
+"Persistent undo
+if has('persistent_undo')
+    set undodir=~\vimfiles\vim_undo_files
+    set undofile
+endif
+
+"Spelling
+if has('syntax')
+    set spelllang=en_gb
+endif
+
 "File settings
 set encoding=utf-8
 set modelines=1
@@ -81,6 +92,8 @@ nnoremap g# g#zz
 
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
+nmap S :%s//g<Left><Left>
+xmap S :s//g<Left><Left>
 
 inoremap jj <Esc>
 
@@ -118,6 +131,11 @@ if version >= 700
         au WinLeave * setlocal nocursorline
         au WinEnter * setlocal cursorline
     augroup END
+endif
+
+"DirectX
+if has("directx") && $VIM_USE_DIRECTX != '0'
+  set renderoptions=type:directx
 endif
 
 "Line wrapping
@@ -158,8 +176,13 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
+"Indent
+xnoremap < <gv
+xnoremap > >gv
+
 "Status line
 set laststatus=2
+set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
 
 if version >= 700
     augroup line_number_colour
@@ -196,14 +219,16 @@ if has('gui_running')
     colorscheme default
     set background=light
 else
-    colorscheme blue
+    colorscheme default
     set background=dark
 endif
 
 "Other GUI options
 if has('gui_running')
     set guioptions-=T
-    set guifont=Consolas:h11
+    "set guifont=Lucida_Console:h10
+    "set guifont=Consolas:h10
+    set guifont=Courier\ New:h10
 endif
 
 " Commenting blocks of code.
