@@ -237,7 +237,7 @@ endif
 if has('gui_running')
     set guioptions-=T
     "set guifont=Consolas:h10
-    set guifont=Courier\ New:h10
+    set guifont=Courier\ New:b:h10
 endif
 
 " Commenting blocks of code.
