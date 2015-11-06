@@ -4,6 +4,7 @@ if has('gui_running')
     source $VIMRUNTIME/mswin.vim
     unmap  <C-Y>|             " <C-Y> for Redo is kept in insert mode
     iunmap <C-A>|             " <C-A> for Select-All is kept in normal mode
+    vunmap <C-v>
 endif
 
 set path=.,**
@@ -235,7 +236,6 @@ endif
 "Other GUI options
 if has('gui_running')
     set guioptions-=T
-    "set guifont=Lucida_Console:h10
     "set guifont=Consolas:h10
     set guifont=Courier\ New:h10
 endif
