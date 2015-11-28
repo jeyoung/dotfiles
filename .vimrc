@@ -236,8 +236,8 @@ endif
 "Other GUI options
 if has('gui_running')
     set guioptions-=T
-    "set guifont=Consolas:h10
-    set guifont=Courier\ New:b:h10
+    set guifont=Consolas:h10.5
+    "set guifont=Courier\ New:h10:cDEFAULT
 endif
 
 " Commenting blocks of code.
