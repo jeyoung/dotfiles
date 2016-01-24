@@ -2,24 +2,22 @@
 	editor = vim
 	autocrlf = true
 	text = auto
-	excludesfile = C:\\Users\\jeyou_000/.gitignore
+	excludesfile = C:\\Users\\jeyou/.gitignore
 [user]
 	name = Eddy Young
-	email = jeyoung@priscimon.com
+	email = 
 [push]
 	default = simple
 [color]
 	ui = auto
 [http]
 	sslVerify = false
+	postBuffer = 524288000
 
-[merge]
-    tool = kdiff3
 
-[mergetool.kdiff3]
-    path = "C:\\Program Files\\kdiff3\\kdiff3.exe"
-
+[credential]
+	helper = manager
 
 [alias]
-    ls = log --pretty=format:"%C(green)%h %C(yellow)[%ad]%Cred%d %Creset%s%Cblue [%cn]" --decorate --date=relative
-
+    ls = log --pretty=format:"%C(auto)%h\\ %C(auto)[%ad]%C(auto)%d\\ %Creset%s\\ %C(cyan)[%cn]" --decorate --date=relative
+    lg = log --stat --decorate --date=relative --date-order
