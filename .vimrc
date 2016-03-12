@@ -1,12 +1,3 @@
-source $VIMRUNTIME/vimrc_example.vim
-
-if has('gui_running')
-    source $VIMRUNTIME/mswin.vim
-    unmap  <C-Y>|             " <C-Y> for Redo is kept in insert mode
-    iunmap <C-A>|             " <C-A> for Select-All is kept in normal mode
-    vunmap <C-v>
-endif
-
 set path=.,**
 set wildignore=*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
@@ -75,6 +66,7 @@ set ignorecase
 set smartcase
 set incsearch
 set showmatch
+set nowrapscan
 
 set autoindent
 set expandtab
@@ -89,7 +81,6 @@ set formatoptions=qrn1j
 set backspace=indent,eol,start
 
 "Search
-nnoremap <silent> <Esc> <Esc>:noh<Cr>
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
@@ -155,6 +146,13 @@ if has('gui_running')
     else
         set listchars=tab:→\ ,trail:·,extends:»,precedes:«
     endif
+endif
+
+if has('gui_running')
+    augroup width_and_height
+        au!
+        au VimEnter * set lines=55 columns=160
+    augroup END
 endif
 
 set textwidth=78
