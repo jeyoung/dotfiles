@@ -8,7 +8,7 @@ set writebackup
 
 "Swap file
 set directory=~/vimfiles/swap,$TMP
-set swapfile
+set swapfile 
 
 "Persistent undo
 if has('persistent_undo')
@@ -87,11 +87,15 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+nnoremap <A-n> :cnext<Cr>
+nnoremap <A-p> :cprev<Cr>
+set nowrapscan
 
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
 nmap S :%s//g<Left><Left>
 xmap S :s//g<Left><Left>
+nmap <leader>n :set hlsearch!<Cr>
 
 inoremap jj <Esc>
 
@@ -127,7 +131,9 @@ if version >= 700
     augroup cursorline_toggle
         au!
         au WinLeave * setlocal nocursorline
+        au InsertEnter * setlocal nocursorline
         au WinEnter * setlocal cursorline
+        au InsertLeave * setlocal cursorline
     augroup END
 endif
 
@@ -151,7 +157,7 @@ endif
 if has('gui_running')
     augroup width_and_height
         au!
-        au VimEnter * set lines=55 columns=160
+        au VimEnter * set lines=50 columns=160
     augroup END
 endif
 
@@ -189,8 +195,7 @@ xnoremap < <gv
 xnoremap > >gv
 
 "Status line
-set laststatus=2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
+set laststatus=1
 
 if version >= 700
     augroup line_number_colour
@@ -201,11 +206,9 @@ if version >= 700
     augroup END
 endif
 
-"Vimgrep
-if executable('findstr')
-    set grepprg=C:\\Utilities\\findstr2\\fs.bat
-endif
-nnoremap <leader>g :grep<Space>"\<<cword>\>" *.*<Cr>:cw<Cr>
+"Grep
+set grepprg=\"C:\Program\ Files\ (x86)\GnuWin32\bin\egrep.exe\"\ -nHirI
+nnoremap <leader>g :grep<Space>"\b<cword>\b"<Space>--include=*.*<Space>.<Cr> :cw<Cr>
 
 "Repeat command
 nnoremap <leader>. @:
@@ -234,8 +237,7 @@ endif
 "Other GUI options
 if has('gui_running')
     set guioptions-=T
-    set guifont=Consolas:h10.5
-    "set guifont=Courier\ New:h10:cDEFAULT
+    set guifont=Input:h10:cDEFAULT
 endif
 
 " Commenting blocks of code.
