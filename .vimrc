@@ -1,12 +1,3 @@
-source $VIMRUNTIME/vimrc_example.vim
-
-if has('gui_running')
-    source $VIMRUNTIME/mswin.vim
-    unmap  <C-Y>|             " <C-Y> for Redo is kept in insert mode
-    iunmap <C-A>|             " <C-A> for Select-All is kept in normal mode
-    vunmap <C-v>
-endif
-
 set path=.,**
 set wildignore=*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
@@ -17,7 +8,7 @@ set writebackup
 
 "Swap file
 set directory=~/vimfiles/swap,$TMP
-set swapfile
+set swapfile 
 
 "Persistent undo
 if has('persistent_undo')
@@ -89,13 +80,15 @@ set formatoptions=qrn1j
 set backspace=indent,eol,start
 
 "Search
-nnoremap <silent> <Esc> <Esc>:noh<Cr>
 nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
+nnoremap <A-n> :cnext<Cr>
+nnoremap <A-p> :cprev<Cr>
+set nowrapscan
 
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
@@ -136,7 +129,9 @@ if version >= 700
     augroup cursorline_toggle
         au!
         au WinLeave * setlocal nocursorline
+        au InsertEnter * setlocal nocursorline
         au WinEnter * setlocal cursorline
+        au InsertLeave * setlocal cursorline
     augroup END
 endif
 
@@ -155,6 +150,13 @@ if has('gui_running')
     else
         set listchars=tab:→\ ,trail:·,extends:»,precedes:«
     endif
+endif
+
+if has('gui_running')
+    augroup width_and_height
+        au!
+        au VimEnter * set lines=40 columns=160
+    augroup END
 endif
 
 set textwidth=78
@@ -191,8 +193,7 @@ xnoremap < <gv
 xnoremap > >gv
 
 "Status line
-set laststatus=2
-set statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
+set laststatus=1
 
 if version >= 700
     augroup line_number_colour
@@ -236,8 +237,7 @@ endif
 "Other GUI options
 if has('gui_running')
     set guioptions-=T
-    set guifont=Consolas:h10.5
-    "set guifont=Courier\ New:h10:cDEFAULT
+    set guifont=Input:h10:cDEFAULT
 endif
 
 " Commenting blocks of code.
