@@ -209,6 +209,13 @@ endif
 "Grep
 set grepprg=\"C:\Program\ Files\ (x86)\GnuWin32\bin\egrep.exe\"\ -nHirI
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Space>--include=*.*<Space>.<Cr> :cw<Cr>
+augroup qf
+    autocmd!
+    " automatically open the location/quickfix window after :make, :grep,
+    " :lvimgrep and friends if there are valid locations/errors
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+augroup END
 
 "Repeat command
 nnoremap <leader>. @:
