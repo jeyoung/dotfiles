@@ -95,7 +95,7 @@ vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
 nmap S :%s//g<Left><Left>
 xmap S :s//g<Left><Left>
-nmap <leader>n :set hlsearch!<Cr>
+nmap <leader>n :nohlsearch<Cr>
 
 inoremap jj <Esc>
 
