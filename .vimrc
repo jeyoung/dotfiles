@@ -207,8 +207,8 @@ if version >= 700
 endif
 
 "Grep
-set grepprg=\"C:\Program\ Files\ (x86)\GnuWin32\bin\egrep.exe\"\ -nHirI
-nnoremap <leader>g :grep<Space>"\b<cword>\b"<Space>--include=*.*<Space>.<Cr> :cw<Cr>
+set grepprg=\"C:\Utilities\sift\sift.exe\"\ --binary-skip\ --exclude-files=tags.*\ --git\ --smart-case\ --line-number
+nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 augroup qf
     autocmd!
     " automatically open the location/quickfix window after :make, :grep,
