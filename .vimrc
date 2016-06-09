@@ -49,7 +49,7 @@ set showcmd
 set ttyfast
 set visualbell
 set wildmenu
-set wildmode=list:full
+set wildmode=list:longest,full
 
 set foldmethod=marker
 set number
@@ -216,6 +216,8 @@ augroup qf
     autocmd QuickFixCmdPost [^l]* cwindow
     autocmd QuickFixCmdPost l*    lwindow
 augroup END
+nnoremap <F8> :cn<Cr>
+nnoremap <S-F8> :cp<Cr>
 
 "Repeat command
 nnoremap <leader>. @:
@@ -244,7 +246,7 @@ endif
 "Other GUI options
 if has('gui_running')
     set guioptions-=T
-    set guifont=Input:h10:cDEFAULT
+    set guifont=Source\ Code\ Pro:h11:cDEFAULT
 endif
 
 " Commenting blocks of code.
