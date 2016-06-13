@@ -1,5 +1,5 @@
 set path+=,**
-set wildignore+=*/bin/**/*,*/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
+set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
 "Backup
 set backupdir=~/vimfiles/backup,$TMP
