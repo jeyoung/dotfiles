@@ -1,5 +1,5 @@
-set path=.,**
-set wildignore=*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
+set path+=,**
+set wildignore+=*/bin/**/*,*/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
 "Backup
 set backupdir=~/vimfiles/backup,$TMP
@@ -15,6 +15,12 @@ if has('persistent_undo')
     set undodir=~/vimfiles/undo
     set undofile
 endif
+
+"Viminfo
+set viminfo='1000,f1,<500,:500,@500,/500,rA:,rB:,h,%
+
+"Sessions
+set sessionoptions+=resize
 
 "Spelling
 if has('syntax')
@@ -205,13 +211,10 @@ endif
 "Grep
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --binary-skip\ --exclude-files=tags.*\ --git\ --smart-case\ --line-number
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
-augroup qf
-    autocmd!
-    " automatically open the location/quickfix window after :make, :grep,
-    " :lvimgrep and friends if there are valid locations/errors
-    autocmd QuickFixCmdPost [^l]* cwindow
-    autocmd QuickFixCmdPost l*    lwindow
-augroup END
+"augroup qf
+"    autocmd QuickFixCmdPost [^l]* clist
+"    autocmd QuickFixCmdPost l* clist
+"augroup END
 nnoremap <F8> :cn<Cr>
 nnoremap <S-F8> :cp<Cr>
 
