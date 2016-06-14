@@ -1,23 +1,35 @@
 [core]
-	editor = vim
+	editor = vim.bat
 	autocrlf = true
 	text = auto
-	excludesfile = C:\\Users\\jeyou/.gitignore
+	excludesfile = D:\\Users\\eyoung3/.gitignore
+
 [user]
 	name = Eddy Young
 	email = 
+
 [push]
 	default = simple
+
 [color]
 	ui = auto
+
 [http]
 	sslVerify = false
 	postBuffer = 524288000
-
 
 [credential]
 	helper = manager
 
 [alias]
-    ls = log --pretty=format:"%C(auto)%h\\ %C(auto)[%ad]%C(auto)%d\\ %Creset%s\\ %C(cyan)[%cn]" --decorate --date=relative
-    lg = log --stat --decorate --date=relative --date-order
+    ls = log --pretty=format:"%C(auto)%h\\ %C(auto)[%ad]\\ %Creset%s%C(auto)%d\\ %C(cyan)[%cn]" --decorate --date=relative
+    lg = log --decorate --stat --date=relative
+    glog = log --decorate --stat --date-order --date=relative --graph
+    st = status
+    co = checkout
+    fe = fetch
+    pu = pull
+    conflicts = diff --name-only --diff-filter=U
+
+[diff]
+	compactionHeuristic = true
