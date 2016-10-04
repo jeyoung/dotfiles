@@ -1,4 +1,4 @@
-set path+=,**
+set path+=**
 set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
 "Backup
@@ -8,7 +8,7 @@ set writebackup
 
 "Swap file
 set directory=~/vimfiles/swap,$TMP
-set swapfile 
+set swapfile
 
 "Persistent undo
 if has('persistent_undo')
@@ -17,7 +17,7 @@ if has('persistent_undo')
 endif
 
 "Viminfo
-set viminfo='1000,f1,<500,:500,@500,/500,rA:,rB:,h,%
+set viminfo='1000,f1,<500,:500,@500,/500,rA:,rB:,h
 
 "Sessions
 set sessionoptions+=resize
@@ -26,6 +26,9 @@ set sessionoptions+=resize
 if has('syntax')
     set spelllang=en_gb
 endif
+
+"Diff
+set diffopt+=iwhite
 
 "File settings
 set encoding=utf-8
@@ -47,13 +50,15 @@ if has('syntax') && !exists('g:syntax_on')
 endif
 
 "General settings
-set cmdheight=1
+set cmdheight=2
 set display+=lastline
 set hidden
 set showmode
 set showcmd
 set ttyfast
+set lazyredraw
 set visualbell
+set t_vb=
 set wildmenu
 set wildmode=list:longest,full
 
@@ -74,13 +79,13 @@ set incsearch
 set showmatch
 set nowrapscan
 
-set autoindent
-set expandtab
-set shiftround
 set shiftwidth=4
 set softtabstop=4
-set smarttab
 set tabstop=4
+set autoindent
+set shiftround
+set expandtab
+set smarttab
 
 set formatoptions=qrn1j
 
@@ -93,14 +98,9 @@ nnoremap * *zz
 nnoremap # #zz
 nnoremap g* g*zz
 nnoremap g# g#zz
-nnoremap <A-n> :cnext<Cr>
-nnoremap <A-p> :cprev<Cr>
-set nowrapscan
 
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
-nmap S :%s//g<Left><Left>
-xmap S :s//g<Left><Left>
 nmap <leader>n :set hlsearch! hlsearch?<Cr>
 nmap <Esc><Esc> :nohlsearch<Cr>
 
@@ -113,13 +113,6 @@ nnoremap <C-Left> <C-w>h
 nnoremap <C-Up> <C-w>k
 
 nnoremap gw <C-w>
-
-if version >= 700
-    augroup win_fix_height
-        au!
-        au WinEnter * set winfixheight
-    augroup END
-endif
 
 "Buffers
 nnoremap <C-Tab> :bn<CR>
@@ -141,7 +134,7 @@ endif
 
 "DirectX
 if has("directx") && $VIM_USE_DIRECTX != '0'
-  set renderoptions=type:directx
+  set renderoptions=type:directx,taamode:1
 endif
 
 "Line wrapping
@@ -149,7 +142,6 @@ if has('gui_running')
     if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
         let &listchars = "tab:→\ ,trail:·,extends:»,precedes:«"
         let &fillchars = "vert:¦"
-        "let &showbreak = "¬\ "
         let &showbreak = "↳ "
     else
         set listchars=tab:→\ ,trail:·,extends:»,precedes:«
@@ -159,32 +151,23 @@ endif
 if has('gui_running')
     augroup width_and_height
         au!
-        au VimEnter * set lines=50 columns=160
+        au VimEnter * set columns=160 lines=45
     augroup END
 endif
 
 set textwidth=78
-set wrap
-set linebreak
-set breakindent
-set nolist
+set nowrap
+set nolinebreak
+set nobreakindent
+set list
 set cpoptions+=n
 nnoremap <silent> <leader>l :setlocal wrap! linebreak! breakindent! list!<Cr>:setlocal wrap? linebreak? breakindent? list?<Cr>
 
-"Completion
-inoremap <C-o> <C-X><C-o>
-inoremap <C-]> <C-X><C-]>
-
 "Section move
-map [[ ?{<CR>w99[{
-map ][ /}<CR>b99]}
-map ]] j0[[%/{<CR>
-map [] k$][%?}<CR>
-
-nnoremap <Tab> }
-nnoremap <S-Tab> {
-vnoremap <Tab> }
-vnoremap <S-Tab> {
+nnoremap <Tab> }zz
+nnoremap <S-Tab> {zz
+vnoremap <Tab> }zz
+vnoremap <S-Tab> {zz
 
 "Movement fix
 nnoremap j gj
@@ -192,12 +175,10 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-"Indent
-xnoremap < <gv
-xnoremap > >gv
+nnoremap ' `
 
 "Status line
-set laststatus=1
+set laststatus=2
 
 if version >= 700
     augroup line_number_colour
@@ -209,12 +190,13 @@ if version >= 700
 endif
 
 "Grep
-set grepprg=\"C:\Utilities\sift\sift.exe\"\ --binary-skip\ --exclude-files=tags.*\ --git\ --smart-case\ --line-number
+set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
-"augroup qf
+augroup qf
+    au!
 "    autocmd QuickFixCmdPost [^l]* clist
-"    autocmd QuickFixCmdPost l* clist
-"augroup END
+    autocmd QuickFixCmdPost l* clist
+augroup END
 nnoremap <F8> :cn<Cr>
 nnoremap <S-F8> :cp<Cr>
 
@@ -234,14 +216,15 @@ if has('gui_running')
     colorscheme default
     set background=light
 else
-    colorscheme default
+    colorscheme zellner
     set background=dark
 endif
 
 "Other GUI options
 if has('gui_running')
+    set guioptions-=m
     set guioptions-=T
-    set guifont=Source\ Code\ Pro:h11:cDEFAULT
+    set guifont=Courier\ New:h10:cDEFAULT
 endif
 
 " Commenting blocks of code.
