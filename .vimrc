@@ -50,14 +50,14 @@ if has('syntax') && !exists('g:syntax_on')
 endif
 
 "General settings
-set cmdheight=2
+set cmdheight=1
 set display+=lastline
 set hidden
 set showmode
 set showcmd
 set ttyfast
 set lazyredraw
-set visualbell
+set novisualbell
 set t_vb=
 set wildmenu
 set wildmode=list:longest,full
@@ -151,7 +151,7 @@ endif
 if has('gui_running')
     augroup width_and_height
         au!
-        au VimEnter * set columns=160 lines=45
+        au VimEnter * set columns=999 lines=999
     augroup END
 endif
 
@@ -216,7 +216,7 @@ if has('gui_running')
     colorscheme default
     set background=light
 else
-    colorscheme zellner
+    colorscheme default
     set background=dark
 endif
 
