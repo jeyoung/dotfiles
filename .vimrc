@@ -63,6 +63,7 @@ set wildmenu
 set wildmode=list:longest,full
 
 set foldmethod=marker
+set foldlevelstart=1
 set number
 set ruler
 set scrolloff=5
