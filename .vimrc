@@ -208,6 +208,7 @@ nnoremap <leader>. @:
 nnoremap Y yg_
 
 "Clipboard copy/paste
+set clipboard=unnamed
 noremap <leader>y "*y
 noremap <leader>p "*p
 noremap <leader>P "*P
