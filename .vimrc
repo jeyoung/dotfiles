@@ -208,7 +208,7 @@ nnoremap <leader>. @:
 nnoremap Y yg_
 
 "Clipboard copy/paste
-set clipboard=unnamed
+"These are redundant in Win32, see :help S-Insert
 noremap <leader>y "*y
 noremap <leader>p "*p
 noremap <leader>P "*P
