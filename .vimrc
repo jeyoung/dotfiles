@@ -138,16 +138,17 @@ if has("directx") && $VIM_USE_DIRECTX != '0'
   set renderoptions=type:directx,taamode:1
 endif
 
-"Line wrapping
+"Hidden characters
 if has('gui_running')
-    if (&termencoding ==# 'utf-8' || &encoding ==# 'utf-8') && version >= 700
-        let &listchars = "tab:→\ ,trail:·,extends:»,precedes:«"
-        let &fillchars = "vert:¦"
-        let &showbreak = "↳ "
-    else
-        set listchars=tab:→\ ,trail:·,extends:»,precedes:«
-    endif
+    let &listchars = "tab:→ ,trail:·,extends:»,precedes:«,nbsp:␣"
+    let &fillchars = "vert:|"
+    let &showbreak = "↳ "
+else
+    let &listchars = "tab:>-,trail:-,extends:>,precedes:<,nbsp:%"
+    let &fillchars = "vert:|"
+    let &showbreak = "¬ "
 endif
+set list
 
 if has('gui_running')
     augroup width_and_height
@@ -156,13 +157,12 @@ if has('gui_running')
     augroup END
 endif
 
+"Line wrap
 set textwidth=78
-set nowrap
-set nolinebreak
-set nobreakindent
-set list
-set cpoptions+=n
-nnoremap <silent> <leader>l :setlocal wrap! linebreak! breakindent! list!<Cr>:setlocal wrap? linebreak? breakindent? list?<Cr>
+set wrap
+set linebreak
+set breakindent
+nnoremap <silent> <leader>l :setlocal wrap!<Cr>:setlocal wrap?<Cr>
 
 "Section move
 nnoremap <Tab> }zz
@@ -208,7 +208,6 @@ nnoremap <leader>. @:
 nnoremap Y yg_
 
 "Clipboard copy/paste
-"These are redundant in Win32, see :help S-Insert
 noremap <leader>y "*y
 noremap <leader>p "*p
 noremap <leader>P "*P
@@ -226,7 +225,7 @@ endif
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    set guifont=Courier\ New:h10:cDEFAULT
+    set guifont=DejaVu\ LGC\ Sans\ Mono:h10:cDEFAULT
 endif
 
 " Commenting blocks of code.
