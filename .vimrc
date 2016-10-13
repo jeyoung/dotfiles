@@ -1,3 +1,6 @@
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
 set path+=**
 set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
@@ -56,9 +59,9 @@ set hidden
 set showmode
 set showcmd
 set ttyfast
-set lazyredraw
-set novisualbell
-set vb t_vb=
+set nolazyredraw
+set visualbell
+set t_vb=
 set wildmenu
 set wildmode=list:longest,full
 
