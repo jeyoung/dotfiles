@@ -1,3 +1,8 @@
+if version >= 800
+    unlet! skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
+endif
+
 set path+=**
 set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
