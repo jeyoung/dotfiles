@@ -61,9 +61,9 @@ set hidden
 set showmode
 set showcmd
 set ttyfast
-set lazyredraw
-set novisualbell
-set vb t_vb=
+set nolazyredraw
+set visualbell
+set t_vb=
 set wildmenu
 set wildmode=list:longest,full
 
