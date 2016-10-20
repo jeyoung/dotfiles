@@ -1,6 +1,12 @@
-unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
+if version >= 800
+    unlet! skip_defaults_vim
+    source $VIMRUNTIME/defaults.vim
 
+    "Matchit
+    packadd! matchit
+endif
+
+"Search paths
 set path+=**
 set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
@@ -52,48 +58,58 @@ if has('syntax') && !exists('g:syntax_on')
                 \ endif <CR>
 endif
 
-"General settings
-set cmdheight=1
-set display+=lastline
-set hidden
-set showmode
-set showcmd
+
+"UX
 set ttyfast
 set nolazyredraw
 set visualbell
-set t_vb=
+set belloff+=backspace,cursor
+
+"General
 set wildmenu
 set wildmode=list:longest,full
 
 set foldmethod=marker
 set foldlevelstart=1
+
 set number
-set ruler
+
 set scrolloff=5
 set sidescroll=5
 set sidescrolloff=5
 set virtualedit=block
-set display+=lastline
 
+"Search
 set gdefault
 set hlsearch
 set ignorecase
-set smartcase
 set incsearch
-set showmatch
 set nowrapscan
+set smartcase
 
+set showmatch
+set matchpairs+=<:>
+au FileType c,cpp,java,js,cs set matchpairs+==:;
+
+"Indent
 set shiftwidth=4
 set softtabstop=4
 set tabstop=4
+
 set autoindent
+set smartindent
+
 set shiftround
+
 set expandtab
 set smarttab
 
 set formatoptions=qrn1j
 
 set backspace=indent,eol,start
+
+"Tags
+set showfulltag
 
 "Search
 nnoremap n nzz
@@ -115,10 +131,10 @@ nnoremap <C-Right> <C-w>l
 nnoremap <C-Down> <C-w>j
 nnoremap <C-Left> <C-w>h
 nnoremap <C-Up> <C-w>k
-
 nnoremap gw <C-w>
 
 "Buffers
+set hidden
 nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
@@ -181,8 +197,13 @@ vnoremap k gk
 
 nnoremap ' `
 
-"Status line
+"Bottom of screen
+set cmdheight=1
+set display+=lastline
 set laststatus=2
+set ruler
+set showcmd
+set showmode
 
 if version >= 700
     augroup line_number_colour
@@ -219,9 +240,6 @@ noremap <leader>P "*P
 if has('gui_running')
     colorscheme default
     set background=light
-else
-    colorscheme default
-    set background=dark
 endif
 
 "Other GUI options
@@ -229,6 +247,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guifont=DejaVu\ LGC\ Sans\ Mono:h10:cDEFAULT
+    nnoremap <F3> :set gfn=*<Cr>
 endif
 
 " Commenting blocks of code.
