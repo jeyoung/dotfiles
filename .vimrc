@@ -204,8 +204,7 @@ set laststatus=2
 set ruler
 set showcmd
 set showmode
-set statusline=%<%f\ \[%1*\ %M%*%n%R%H]\ %=%-14.(%l,%c%V%)\ %P
-highlight User1 term=inverse,bold cterm=inverse,bold ctermfg=red guifg=red 
+set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
 
 if version >= 700
     augroup line_number_colour
