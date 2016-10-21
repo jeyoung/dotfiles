@@ -204,6 +204,7 @@ set laststatus=2
 set ruler
 set showcmd
 set showmode
+set statusline=%<%f\ \[%1*%M%*%n%R%H]\ %=%-14.(%l,%c%V%)\ %P
 
 if version >= 700
     augroup line_number_colour
@@ -246,7 +247,8 @@ endif
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    set guifont=DejaVu\ LGC\ Sans\ Mono:h10:cDEFAULT
+    set guioptions-=L
+    set guifont=Liberation\ Mono:h10
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
