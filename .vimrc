@@ -183,12 +183,6 @@ set linebreak
 set breakindent
 nnoremap <silent> <leader>l :setlocal wrap!<Cr>:setlocal wrap?<Cr>
 
-"Section move
-nnoremap <Tab> }zz
-nnoremap <S-Tab> {zz
-vnoremap <Tab> }zz
-vnoremap <S-Tab> {zz
-
 "Movement fix
 nnoremap j gj
 nnoremap k gk
@@ -202,9 +196,12 @@ set cmdheight=1
 set display+=lastline
 set laststatus=2
 set ruler
-set showcmd
+set showcmd 
 set showmode
 set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
+if version >= 800
+    set statusline+=\ %{gutentags#statusline()}
+endif
 
 if version >= 700
     augroup line_number_colour
@@ -248,9 +245,13 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Source\ Code\ Pro:h10
+    set guifont=Consolas:h10
     nnoremap <F3> :set gfn=*<Cr>
 endif
+
+"Autocomplete
+set completeopt+=menuone
+set shortmess+=c
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
