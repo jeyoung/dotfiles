@@ -199,9 +199,6 @@ set ruler
 set showcmd 
 set showmode
 set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
-if version >= 800
-    set statusline+=\ %{gutentags#statusline()}
-endif
 
 if version >= 700
     augroup line_number_colour
