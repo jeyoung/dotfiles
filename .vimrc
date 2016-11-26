@@ -13,23 +13,15 @@ set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.
 "Backup
 set backup
 set backupdir=~/vimfiles/backup,$TMP
-set writebackup
 
 "Swap file
 set directory=~/vimfiles/swap,$TMP
-set swapfile
 
 "Persistent undo
 if has('persistent_undo')
     set undodir=~/vimfiles/undo
     set undofile
 endif
-
-"Viminfo
-set viminfo='1000,f1,<500,:500,@500,/500,rA:,rB:,h
-
-"Sessions
-set sessionoptions+=resize
 
 "Spelling
 if has('syntax')
@@ -41,7 +33,6 @@ set diffopt+=iwhite
 
 "File settings
 set encoding=utf-8
-set modelines=1
 
 "Options based on filetypes
 if has('autocmd')
@@ -66,7 +57,7 @@ set visualbell
 
 "General
 set wildmenu
-set wildmode=list:longest,full
+set wildmode+=list:full
 
 "Folding
 set foldlevelstart=1
@@ -77,8 +68,8 @@ set number
 
 "Scroll
 set scrolloff=5
-set sidescroll=5
-set sidescrolloff=5
+set sidescroll=1
+set sidescrolloff=1
 set virtualedit=block
 
 "Search
@@ -86,7 +77,6 @@ set gdefault
 set hlsearch
 set ignorecase
 set incsearch
-set nowrapscan
 set smartcase
 
 "Pair matching
@@ -187,11 +177,9 @@ vnoremap k gk
 nnoremap ' `
 
 "Bottom of screen
-set cmdheight=1
 set display+=lastline
 set laststatus=2
 set ruler
-set showcmd 
 set showmode
 set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
 
