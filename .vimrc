@@ -191,7 +191,7 @@ set cmdheight=1
 set display+=lastline
 set laststatus=2
 set ruler
-set showcmd
+set showcmd 
 set showmode
 set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
 
@@ -237,13 +237,13 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Input:h9.5
+    set guifont=Hack:h9.5
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
 "Autocomplete
-set completeopt+=menu,menuone
-set shortmess-=c
+set completeopt+=menuone
+set shortmess+=c
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
