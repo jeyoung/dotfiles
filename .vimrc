@@ -11,8 +11,8 @@ set path+=**
 set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
 
 "Backup
-set backupdir=~/vimfiles/backup,$TMP
 set backup
+set backupdir=~/vimfiles/backup,$TMP
 set writebackup
 
 "Swap file
@@ -60,20 +60,22 @@ endif
 
 
 "UX
-set ttyfast
-set nolazyredraw
-set visualbell
 set belloff+=backspace,cursor
+set ttyfast
+set visualbell
 
 "General
 set wildmenu
 set wildmode=list:longest,full
 
-set foldmethod=marker
+"Folding
 set foldlevelstart=1
+set foldmethod=marker
 
+"Number
 set number
 
+"Scroll
 set scrolloff=5
 set sidescroll=5
 set sidescrolloff=5
@@ -87,26 +89,22 @@ set incsearch
 set nowrapscan
 set smartcase
 
-set showmatch
+"Pair matching
 set matchpairs+=<:>
-au FileType c,cpp,java,js,cs set matchpairs+==:;
+set showmatch
 
-"Indent
+"Indent and tabs
+set autoindent
+set backspace=indent,eol,start
+set expandtab
 set shiftwidth=4
+set smarttab
+set smartindent
 set softtabstop=4
 set tabstop=4
 
-set autoindent
-set smartindent
-
-set shiftround
-
-set expandtab
-set smarttab
-
-set formatoptions=qrn1j
-
-set backspace=indent,eol,start
+"Formatting
+set formatoptions+=rn1j2
 
 "Tags
 set showfulltag
@@ -167,7 +165,6 @@ else
     let &fillchars = "vert:|"
     let &showbreak = "¬ "
 endif
-set list
 
 if has('gui_running')
     augroup width_and_height
@@ -177,17 +174,9 @@ if has('gui_running')
 endif
 
 "Line wrap
-set textwidth=78
-set wrap
-set linebreak
 set breakindent
-nnoremap <silent> <leader>l :setlocal wrap!<Cr>:setlocal wrap?<Cr>
-
-"Section move
-nnoremap <Tab> }zz
-nnoremap <S-Tab> {zz
-vnoremap <Tab> }zz
-vnoremap <S-Tab> {zz
+set linebreak
+set textwidth=78
 
 "Movement fix
 nnoremap j gj
@@ -248,9 +237,13 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Source\ Code\ Pro:h10
+    set guifont=Input:h9.5
     nnoremap <F3> :set gfn=*<Cr>
 endif
+
+"Autocomplete
+set completeopt+=menu,menuone
+set shortmess-=c
 
 " Commenting blocks of code.
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
@@ -262,3 +255,7 @@ autocmd FileType sql let b:comment_leader = '-- '
 autocmd FileType vim let b:comment_leader = '" '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\(\s*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
+
+"Clear trailing spaces
+nnoremap <leader>cs :%s/\s\+$/<Cr>
+
