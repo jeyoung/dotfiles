@@ -25,6 +25,7 @@ endif
 
 "Spelling
 if has('syntax')
+    set spell
     set spelllang=en_gb
 endif
 
@@ -100,13 +101,6 @@ set formatoptions+=rn1j2
 set showfulltag
 
 "Search
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap g* g*zz
-nnoremap g# g#zz
-
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
 nmap <leader>n :set hlsearch! hlsearch?<Cr>
