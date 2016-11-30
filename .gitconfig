@@ -22,7 +22,7 @@
 [core]
     autocrlf = true
     editor = vim
-    excludesfile = ~\.gitignore
+    excludesfile = ~/.gitignore
     text = auto
     whitespace=fix,-indent-with-non-tab,trailing-space,cr-at-eol
 
@@ -35,10 +35,10 @@
     remote = green
 
 [color "diff"]
-    meta = yellow bold
     frag = magenta bold
-    old = red bold
+    meta = yellow bold
     new = green bold
+    old = red bold
     whitespace = red reverse
 
 [color "status"]
@@ -52,6 +52,7 @@
 [diff]
     algorithm = histogram
     compactionHeuristic = true
+    indentHeuristic = true
 
 [http]
     postBuffer = 524288000
