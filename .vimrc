@@ -6,140 +6,29 @@ if version >= 800
     packadd! matchit
 endif
 
-"Search paths
-set path+=**
-set wildignore+=**/bin/**/*,**/obj/**/*,*.class,*.obj,*.exe,*.dll,*.pdb,*.pyc,*.lib,*.swp,*.war,*.jar
-
-"Backup
-set backup
-set backupdir=~/vimfiles/backup,$TMP
-
-"Swap file
-set directory=~/vimfiles/swap,$TMP
-
-"Persistent undo
 if has('persistent_undo')
-    set undodir=~/vimfiles/undo
     set undofile
 endif
 
-"Spelling
-if has('syntax')
-    set spell
-    set spelllang=en_gb
-endif
-
-"Diff
-set diffopt+=iwhite
-
-"File settings
 set encoding=utf-8
 
-"Options based on filetypes
-if has('autocmd')
-    filetype plugin indent on
-    autocmd FileType * set omnifunc=syntaxcomplete#Complete
-endif
-
-if has('syntax') && !exists('g:syntax_on')
-    syntax enable
-    :map <F7> :if exists("g:syntax_on") <Bar>
+if has('syntax')
+    set spelllang=en_gb
+    map <F7> :if exists("g:syntax_on") <Bar>
                 \   syntax off <Bar>
                 \ else <Bar>
                 \   syntax enable <Bar>
                 \ endif <CR>
 endif
 
+set visualbell belloff+=backspace,cursor
 
-"UX
-set belloff+=backspace,cursor
-set ttyfast
-set visualbell
-
-"General
-set wildmenu
 set wildmode+=list:full
 
-"Folding
-set foldlevelstart=1
-set foldmethod=marker
+set foldlevelstart=1 foldmethod=marker
 
-"Number
-set number
-
-"Scroll
-set scrolloff=5
-set sidescroll=1
-set sidescrolloff=1
-set virtualedit=block
-
-"Search
-set gdefault
-set hlsearch
-set ignorecase
-set incsearch
-set smartcase
-
-"Pair matching
-set matchpairs+=<:>
-set showmatch
-
-"Indent and tabs
-set autoindent
-set backspace=indent,eol,start
-set expandtab
-set shiftwidth=4
-set smarttab
-set smartindent
-set softtabstop=4
-set tabstop=4
-
-"Formatting
-set formatoptions+=rn1j2
-
-"Tags
-set showfulltag
-
-"Search
-vnoremap <leader>/ y/<C-r>"<Cr><Cr>
-    "searches selected text
-nmap <leader>n :set hlsearch! hlsearch?<Cr>
-nmap <Esc><Esc> :nohlsearch<Cr>
-
-inoremap jj <Esc>
-
-"Windows
-nnoremap <C-Right> <C-w>l
-nnoremap <C-Down> <C-w>j
-nnoremap <C-Left> <C-w>h
-nnoremap <C-Up> <C-w>k
-nnoremap gw <C-w>
-
-"Buffers
-set hidden
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-S-Tab> :bp<CR>
-nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
-
-"Cursorline
-set cursorline
-nnoremap <silent> <leader>c :setlocal cursorline!<CR>
-if version >= 700
-    augroup cursorline_toggle
-        au!
-        au WinLeave * setlocal nocursorline
-        au InsertEnter * setlocal nocursorline nohlsearch
-        au WinEnter * setlocal cursorline
-        au InsertLeave * setlocal cursorline hlsearch
-    augroup END
-endif
-
-"DirectX
-if has("directx") && $VIM_USE_DIRECTX != '0'
-  set renderoptions=type:directx,taamode:1
-endif
-
-"Hidden characters
+set linebreak breakindent textwidth=78
+set sidescroll=1 sidescrolloff=1
 if has('gui_running')
     let &listchars = "tab:→ ,trail:·,extends:»,precedes:«,nbsp:␣"
     let &fillchars = "vert:|"
@@ -150,6 +39,53 @@ else
     let &showbreak = "¬ "
 endif
 
+set hlsearch
+set ignorecase smartcase
+vnoremap <leader>/ y/<C-r>"<Cr><Cr>
+    "searches selected text
+nmap <leader>n :set hlsearch! hlsearch?<Cr>
+nmap <Esc><Esc> :nohlsearch<Cr>
+
+set showmatch matchpairs+=<:>
+
+set autoindent smartindent
+set expandtab smarttab shiftwidth=4
+set softtabstop=4 
+set tabstop=4
+
+set formatoptions+=rn1j2
+
+set showfulltag
+
+inoremap jj <Esc>
+
+nnoremap <C-Right> <C-w>l
+nnoremap <C-Down> <C-w>j
+nnoremap <C-Left> <C-w>h
+nnoremap <C-Up> <C-w>k
+nnoremap gw <C-w>
+
+set hidden
+nnoremap <C-Tab> :bn<CR>
+nnoremap <C-S-Tab> :bp<CR>
+nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
+
+set cursorline
+nnoremap <silent> <leader>c :setlocal cursorline!<CR>
+if version >= 700
+    augroup cursorline_toggle
+        au!
+        au WinLeave    * setlocal nocursorline
+        au InsertEnter * setlocal nocursorline nohlsearch
+        au WinEnter    * setlocal cursorline
+        au InsertLeave * setlocal cursorline hlsearch
+    augroup END
+endif
+
+if has("directx") && $VIM_USE_DIRECTX != '0'
+  set renderoptions=type:directx,taamode:1
+endif
+
 if has('gui_running')
     augroup width_and_height
         au!
@@ -157,12 +93,6 @@ if has('gui_running')
     augroup END
 endif
 
-"Line wrap
-set breakindent
-set linebreak
-set textwidth=78
-
-"Movement fix
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
@@ -170,51 +100,36 @@ vnoremap k gk
 
 nnoremap ' `
 
-"Bottom of screen
-set display+=lastline
-set laststatus=2
-set ruler
-set showmode
 set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
 
+set number
 if version >= 700
     augroup line_number_colour
         au!
-        au GUIEnter * hi LineNr guifg=#888888
+        au GUIEnter    * hi LineNr guifg=#888888
         au ColorScheme * hi LineNr guifg=#888888
         au ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
     augroup END
 endif
 
-"Grep
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 augroup qf
     au!
-"    autocmd QuickFixCmdPost [^l]* clist
+    autocmd QuickFixCmdPost [^l]* clist
     autocmd QuickFixCmdPost l* clist
 augroup END
-nnoremap <F8> :cn<Cr>
+nnoremap <F8>   :cn<Cr>
 nnoremap <S-F8> :cp<Cr>
 
-"Repeat command
 nnoremap <leader>. @:
 
-"Y
 nnoremap Y yg_
 
-"Clipboard copy/paste
 noremap <leader>y "*y
 noremap <leader>p "*p
 noremap <leader>P "*P
 
-"Colorscheme
-if has('gui_running')
-    colorscheme default
-    set background=light
-endif
-
-"Other GUI options
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
@@ -223,21 +138,19 @@ if has('gui_running')
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
-"Autocomplete
 set completeopt+=menuone
 set shortmess+=c
 
-" Commenting blocks of code.
+"Comment blocks 
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
 autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
-autocmd FileType conf,fstab let b:comment_leader = '# '
-autocmd FileType tex let b:comment_leader = '% '
-autocmd FileType mail let b:comment_leader = '> '
-autocmd FileType sql let b:comment_leader = '-- '
-autocmd FileType vim let b:comment_leader = '" '
+autocmd FileType conf,fstab          let b:comment_leader = '# '
+autocmd FileType tex                 let b:comment_leader = '% '
+autocmd FileType mail                let b:comment_leader = '> '
+autocmd FileType sql                 let b:comment_leader = '-- '
+autocmd FileType vim                 let b:comment_leader = '" '
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\(\s*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
 
 "Clear trailing spaces
 nnoremap <leader>cs :%s/\s\+$/<Cr>
-
