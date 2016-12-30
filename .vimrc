@@ -70,19 +70,18 @@ nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 
-set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 if version >= 700
     augroup cursorline_toggle
         au!
-        au WinLeave    * setlocal nocursorline
-        au InsertEnter * setlocal nocursorline nohlsearch
-        au WinEnter    * setlocal cursorline
-        au InsertLeave * setlocal cursorline hlsearch
+        au WinLeave    * setlocal cursorline
+        au InsertEnter * setlocal cursorline nohlsearch
+        au WinEnter    * setlocal nocursorline
+        au InsertLeave * setlocal nocursorline hlsearch
     augroup END
 endif
 
-if has("directx") && $VIM_USE_DIRECTX != '0'
+if has("directx") 
   set renderoptions=type:directx,taamode:1
 endif
 
@@ -134,7 +133,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Hack:h9.5
+    set guifont=Hack:h11
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
