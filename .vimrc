@@ -103,6 +103,7 @@ set number
 if version >= 700
     augroup line_number_colour
         autocmd!
+        autocmd GuiEnter    * hi LineNr guifg=#888888
         autocmd VimEnter    * hi LineNr guifg=#888888
         autocmd ColorScheme * hi LineNr guifg=#888888
         autocmd ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
