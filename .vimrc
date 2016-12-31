@@ -73,11 +73,11 @@ nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 if version >= 700
     augroup cursorline_toggle
-        au!
-        au WinLeave    * setlocal cursorline
-        au InsertEnter * setlocal cursorline nohlsearch
-        au WinEnter    * setlocal nocursorline
-        au InsertLeave * setlocal nocursorline hlsearch
+        autocmd!
+        autocmd WinLeave    * setlocal cursorline
+        autocmd InsertEnter * setlocal cursorline nohlsearch
+        autocmd WinEnter    * setlocal nocursorline
+        autocmd InsertLeave * setlocal nocursorline hlsearch
     augroup END
 endif
 
@@ -87,8 +87,8 @@ endif
 
 if has('gui_running')
     augroup width_and_height
-        au!
-        au VimEnter * set columns=999 lines=999
+        autocmd!
+        autocmd VimEnter * set columns=999 lines=999
     augroup END
 endif
 
@@ -99,22 +99,20 @@ vnoremap k gk
 
 nnoremap ' `
 
-set statusline=%<%f\ \[%n%R%H]%m\ %=%-14.(%l,%c%V%)\ %P
-
 set number
 if version >= 700
     augroup line_number_colour
-        au!
-        au GUIEnter    * hi LineNr guifg=#888888
-        au ColorScheme * hi LineNr guifg=#888888
-        au ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
+        autocmd!
+        autocmd VimEnter    * hi LineNr guifg=#888888
+        autocmd ColorScheme * hi LineNr guifg=#888888
+        autocmd ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
     augroup END
 endif
 
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 augroup qf
-    au!
+    autocmd!
     autocmd QuickFixCmdPost [^l]* clist
     autocmd QuickFixCmdPost l* clist
 augroup END
@@ -133,7 +131,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Hack:h11
+    set guifont=Consolas:h11
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
@@ -153,3 +151,6 @@ noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment
 
 "Clear trailing spaces
 nnoremap <leader>cs :%s/\s\+$/<Cr>
+
+"Save
+nnoremap <leader>w :w<Cr>
