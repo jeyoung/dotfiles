@@ -132,10 +132,16 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Consolas:h11
+    set guifont=Consolas:h12
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
+if has("autocmd") && exists("+omnifunc")
+autocmd Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
+endif
 set completeopt+=menuone
 set shortmess+=c
 
