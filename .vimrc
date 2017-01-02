@@ -71,15 +71,13 @@ nnoremap <C-S-Tab> :bp<CR>
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
-if version >= 700
-    augroup cursorline_toggle
-        autocmd!
-        autocmd WinLeave    * setlocal cursorline
-        autocmd InsertEnter * setlocal cursorline nohlsearch
-        autocmd WinEnter    * setlocal nocursorline
-        autocmd InsertLeave * setlocal nocursorline hlsearch
-    augroup END
-endif
+augroup cursorline_toggle
+    autocmd!
+    autocmd WinEnter    * setlocal nocursorline
+    autocmd WinLeave    * setlocal cursorline
+    autocmd InsertEnter * setlocal cursorline nohlsearch
+    autocmd InsertLeave * setlocal nocursorline hlsearch
+augroup END
 
 if has("directx") 
   set renderoptions=type:directx,taamode:1
@@ -101,22 +99,19 @@ nnoremap ' `
 nnoremap g. <Esc>`[v`]<Left>
 
 set number
-if version >= 700
-    augroup line_number_colour
-        autocmd!
-        autocmd GuiEnter    * hi LineNr guifg=#888888
-        autocmd VimEnter    * hi LineNr guifg=#888888
-        autocmd ColorScheme * hi LineNr guifg=#888888
-        autocmd ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
-    augroup END
-endif
+augroup line_number_colour
+    autocmd!
+    autocmd GuiEnter    * hi LineNr guifg=#888888
+    autocmd ColorScheme * hi LineNr guifg=#888888
+    autocmd ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
+augroup END
 
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 augroup qf
     autocmd!
     autocmd QuickFixCmdPost [^l]* clist
-    autocmd QuickFixCmdPost l* clist
+    autocmd QuickFixCmdPost l*    clist
 augroup END
 nnoremap <F8>   :cn<Cr>
 nnoremap <S-F8> :cp<Cr>
@@ -138,10 +133,10 @@ if has('gui_running')
 endif
 
 if has("autocmd") && exists("+omnifunc")
-autocmd Filetype *
-        \	if &omnifunc == "" |
-        \		setlocal omnifunc=syntaxcomplete#Complete |
-        \	endif
+    autocmd Filetype *
+            \	if &omnifunc == "" |
+            \		setlocal omnifunc=syntaxcomplete#Complete |
+            \	endif
 endif
 set completeopt+=menuone
 set shortmess+=c
