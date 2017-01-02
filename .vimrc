@@ -98,6 +98,7 @@ vnoremap j gj
 vnoremap k gk
 
 nnoremap ' `
+nnoremap g. <Esc>`[v`]<Left>
 
 set number
 if version >= 700
