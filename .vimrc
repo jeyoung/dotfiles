@@ -73,10 +73,10 @@ nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd WinEnter    * setlocal nocursorline
-    autocmd WinLeave    * setlocal cursorline
-    autocmd InsertEnter * setlocal cursorline nohlsearch
-    autocmd InsertLeave * setlocal nocursorline hlsearch
+    autocmd WinEnter    * setlocal cursorline
+    autocmd WinLeave    * setlocal nocursorline
+    autocmd InsertEnter * setlocal nocursorline nohlsearch
+    autocmd InsertLeave * setlocal cursorline hlsearch
 augroup END
 
 if has("directx") 
