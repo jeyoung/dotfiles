@@ -57,7 +57,7 @@ set showmatch matchpairs+=<:>
 
 set autoindent smartindent
 set expandtab smarttab shiftwidth=4
-set softtabstop=4 
+set softtabstop=4
 set tabstop=4
 
 set formatoptions+=rn1j2
@@ -77,6 +77,7 @@ nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 
+set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
@@ -86,7 +87,7 @@ augroup cursorline_toggle
     autocmd InsertLeave             * setlocal cursorline hlsearch
 augroup END
 
-if has("directx") 
+if has("directx")
   set renderoptions=type:directx,taamode:1
 endif
 
@@ -143,7 +144,7 @@ endif
 set completeopt+=menuone
 set shortmess+=c
 
-"Comment blocks 
+"Comment blocks
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
 autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
 autocmd FileType conf,fstab          let b:comment_leader = '# '
