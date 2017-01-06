@@ -50,7 +50,7 @@ set showmatch matchpairs+=<:>
 
 set autoindent smartindent
 set expandtab smarttab shiftwidth=4
-set softtabstop=4 
+set softtabstop=4
 set tabstop=4
 
 set formatoptions+=rn1j2
@@ -70,16 +70,17 @@ nnoremap <C-Tab> :bn<CR>
 nnoremap <C-S-Tab> :bp<CR>
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 
+set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd WinEnter    * setlocal nocursorline
-    autocmd WinLeave    * setlocal cursorline
-    autocmd InsertEnter * setlocal cursorline nohlsearch
-    autocmd InsertLeave * setlocal nocursorline hlsearch
+    autocmd WinEnter    * setlocal cursorline
+    autocmd WinLeave    * setlocal nocursorline
+    autocmd InsertEnter * setlocal nocursorline nohlsearch
+    autocmd InsertLeave * setlocal cursorline hlsearch
 augroup END
 
-if has("directx") 
+if has("directx")
   set renderoptions=type:directx,taamode:1
 endif
 
@@ -110,7 +111,7 @@ set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-nu
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 augroup qf
     autocmd!
-    autocmd QuickFixCmdPost [^l]* clist
+    "autocmd QuickFixCmdPost [^l]* clist
     autocmd QuickFixCmdPost l*    clist
 augroup END
 nnoremap <F8>   :cn<Cr>
@@ -128,7 +129,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Consolas:h12
+    set guifont=DejaVu\ LGC\ Sans\ Mono:h10
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
@@ -141,7 +142,7 @@ endif
 set completeopt+=menuone
 set shortmess+=c
 
-"Comment blocks 
+"Comment blocks
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
 autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
 autocmd FileType conf,fstab          let b:comment_leader = '# '
