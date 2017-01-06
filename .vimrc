@@ -33,6 +33,7 @@ set wildmode+=list:full
 
 set foldlevelstart=1 foldmethod=marker
 
+nnoremap <F1> :setlocal wrap!<Cr>
 nnoremap <F2> :setlocal list!<Cr>
 set linebreak breakindent textwidth=78
 set sidescroll=1 sidescrolloff=1
