@@ -10,6 +10,12 @@ if has('persistent_undo')
     set undofile
 endif
 
+" When open a new file remember the cursor position of the last editing
+if has("autocmd")
+    " When editing a file, always jump to the last cursor position
+    autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
+endif
+
 set encoding=utf-8
 
 if has('syntax')
@@ -27,6 +33,7 @@ set wildmode+=list:full
 
 set foldlevelstart=1 foldmethod=marker
 
+nnoremap <F2> :setlocal list!<Cr>
 set linebreak breakindent textwidth=78
 set sidescroll=1 sidescrolloff=1
 if has('gui_running')
@@ -73,10 +80,10 @@ nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd WinEnter    * setlocal nocursorline
-    autocmd WinLeave    * setlocal cursorline
-    autocmd InsertEnter * setlocal cursorline nohlsearch
-    autocmd InsertLeave * setlocal nocursorline hlsearch
+    autocmd WinEnter,FocusGained    * setlocal cursorline
+    autocmd WinLeave,FocusLost      * setlocal nocursorline
+    autocmd InsertEnter             * setlocal nocursorline nohlsearch
+    autocmd InsertLeave             * setlocal cursorline hlsearch
 augroup END
 
 if has("directx") 
@@ -108,11 +115,6 @@ augroup END
 
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
-augroup qf
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* clist
-    autocmd QuickFixCmdPost l*    clist
-augroup END
 nnoremap <F8>   :cn<Cr>
 nnoremap <S-F8> :cp<Cr>
 
@@ -128,7 +130,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=Consolas:h12
+    set guifont=DejaVu\ LGC\ Sans\ Mono:h12
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
