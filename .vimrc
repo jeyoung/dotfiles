@@ -47,7 +47,7 @@ else
     let &showbreak = "¬ "
 endif
 
-set hlsearch
+set hlsearch incsearch
 set ignorecase smartcase
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
@@ -132,7 +132,7 @@ if has('gui_running')
     set guioptions-=m
     set guioptions-=T
     set guioptions-=L
-    set guifont=DejaVu\ LGC\ Sans\ Mono:h12
+    set guifont=Lucida\ Console:h11
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
