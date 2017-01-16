@@ -80,7 +80,8 @@ augroup cursorline_toggle
     autocmd WinLeave,FocusLost      * setlocal nocursorline
     autocmd InsertEnter             * setlocal nocursorline nohlsearch
     autocmd InsertLeave             * setlocal cursorline hlsearch
-    autocmd ColorScheme             * hi CursorLine ctermfg=Black ctermbg=Grey
+    autocmd VimEnter                * hi CursorLine ctermfg=Black ctermbg=Gray
+    autocmd ColorScheme             * hi CursorLine ctermfg=Black ctermbg=Gray
 augroup END
 
 if has('gui_running')
@@ -102,8 +103,8 @@ nnoremap g. <Esc>`[v`]<Left>
 set number
 augroup line_number_colour
     autocmd!
-    autocmd GuiEnter    * hi LineNr guifg=#999999
-    autocmd ColorScheme * hi LineNr guifg=#999999
+    autocmd VimEnter     * hi LineNr guifg=#999999 ctermfg=Gray
+    autocmd ColorScheme  * hi LineNr guifg=#999999 ctermfg=Gray
 augroup END
 
 "Grep
