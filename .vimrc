@@ -6,18 +6,22 @@ if version >= 800
     packadd! matchit
 endif
 
+
+"Buffers
+set encoding=utf-8
+set hidden
+nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
+
 if has('persistent_undo')
     set undofile
 endif
-
 " When open a new file remember the cursor position of the last editing
 if has("autocmd")
     " When editing a file, always jump to the last cursor position
     autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
 endif
 
-set encoding=utf-8
-
+"Syntax highlighting
 if has('syntax')
     set spelllang=en_gb
     map <F7> :if exists("g:syntax_on") <Bar>
@@ -27,15 +31,10 @@ if has('syntax')
                 \ endif <CR>
 endif
 
-set visualbell belloff+=backspace,cursor
-
-set wildmode+=list:full
-
-set foldlevelstart=1 foldmethod=marker
-
-nnoremap <F1> :setlocal wrap!<Cr>
-nnoremap <F2> :setlocal list!<Cr>
-set linebreak breakindent textwidth=78
+"Line wrapping and marker visibilities
+nnoremap <F1> :setlocal wrap!<Cr>:setlocal wrap?<Cr>
+nnoremap <F2> :setlocal list!<Cr>:setlocal list?<Cr>
+set linebreak textwidth=78
 set sidescroll=1 sidescrolloff=1
 if has('gui_running')
     let &listchars = "tab:→ ,trail:·,extends:»,precedes:«,nbsp:␣"
@@ -47,37 +46,32 @@ else
     let &showbreak = "¬ "
 endif
 
-set hlsearch incsearch
-set ignorecase smartcase
+"Searching
+set hlsearch incsearch ignorecase smartcase
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
-nmap <leader>n :set hlsearch! hlsearch?<Cr>
+nmap <leader>n  :set hlsearch! hlsearch?<Cr>
 nmap <Esc><Esc> :nohlsearch<Cr>
 
-set showmatch matchpairs+=<:>
-
+"Indenting and formatting
 set autoindent smartindent
-set expandtab smarttab shiftwidth=4
-set softtabstop=4
-set tabstop=4
-
+set expandtab smarttab shiftwidth=4 tabstop=4 softtabstop=4
 set formatoptions+=rn1j2
 
-set showfulltag
-
+"Insert mode
 inoremap jj <Esc>
+set showmatch matchpairs+=<:>
 
+"Window navigation
+nnoremap <C-Tab>   <C-w>w
+nnoremap <C-S-Tab> <C-w>W
 nnoremap <C-Right> <C-w>l
-nnoremap <C-Down> <C-w>j
-nnoremap <C-Left> <C-w>h
-nnoremap <C-Up> <C-w>k
-nnoremap gw <C-w>
+nnoremap <C-Down>  <C-w>j
+nnoremap <C-Left>  <C-w>h
+nnoremap <C-Up>    <C-w>k
+nnoremap gw        <C-w>
 
-set hidden
-nnoremap <C-Tab> :bn<CR>
-nnoremap <C-S-Tab> :bp<CR>
-nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
-
+"Cursorline
 set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
@@ -86,11 +80,8 @@ augroup cursorline_toggle
     autocmd WinLeave,FocusLost      * setlocal nocursorline
     autocmd InsertEnter             * setlocal nocursorline nohlsearch
     autocmd InsertLeave             * setlocal cursorline hlsearch
+    autocmd ColorScheme             * hi CursorLine ctermfg=Black ctermbg=Grey
 augroup END
-
-if has("directx")
-  set renderoptions=type:directx,taamode:1
-endif
 
 if has('gui_running')
     augroup width_and_height
@@ -99,51 +90,54 @@ if has('gui_running')
     augroup END
 endif
 
+"Motion
 nnoremap j gj
 nnoremap k gk
 vnoremap j gj
 vnoremap k gk
-
 nnoremap ' `
 nnoremap g. <Esc>`[v`]<Left>
 
+"Number line
 set number
 augroup line_number_colour
     autocmd!
-    autocmd GuiEnter    * hi LineNr guifg=#888888
-    autocmd ColorScheme * hi LineNr guifg=#888888
-    autocmd ColorScheme * hi CursorLine ctermfg=Black ctermbg=Grey
+    autocmd GuiEnter    * hi LineNr guifg=#999999
+    autocmd ColorScheme * hi LineNr guifg=#999999
 augroup END
 
+"Grep
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
-nnoremap <F8>   :cn<Cr>
-nnoremap <S-F8> :cp<Cr>
+nnoremap <F8>      :cn<Cr>
+nnoremap <S-F8>    :cp<Cr>
 
-nnoremap <leader>. @:
-
+"Yanking
 nnoremap Y yg_
-
 noremap <leader>y "*y
 noremap <leader>p "*p
 noremap <leader>P "*P
 
+"Fonts
+if has("directx")
+  set renderoptions=type:directx,taamode:1
+endif
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    set guioptions-=L
-    set guifont=Lucida\ Console:h11
+    set guifont=Consolas:h11
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
+"Completion
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
             \	if &omnifunc == "" |
             \		setlocal omnifunc=syntaxcomplete#Complete |
             \	endif
 endif
-set completeopt+=menuone
-set shortmess+=c
+set showfulltag completeopt+=menuone shortmess+=c
+set wildmode+=list:longest
 
 "Comment blocks
 autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
@@ -161,3 +155,13 @@ nnoremap <leader>cs :%s/\s\+$/<Cr>
 
 "Save
 nnoremap <leader>w :w<Cr>
+
+"Find
+nnoremap <leader>f :find **/*
+
+"Repeat last command
+nnoremap <leader>. @:
+
+"Others
+set visualbell belloff+=backspace,cursor
+set foldlevelstart=1 foldmethod=marker
