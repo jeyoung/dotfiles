@@ -69,7 +69,7 @@ nnoremap <C-Right> <C-w>l
 nnoremap <C-Down>  <C-w>j
 nnoremap <C-Left>  <C-w>h
 nnoremap <C-Up>    <C-w>k
-nnoremap gw        <C-w>
+nnoremap <A-m>     <C-w>o
 
 "Cursorline
 set cursorline
