@@ -6,13 +6,13 @@ if version >= 800
     packadd! matchit
 endif
 
-
 "Buffers
 set encoding=utf-8
 set hidden
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 
 if has('persistent_undo')
+    set undodir=~\AppData\Local\Temp\vim_undo_files
     set undofile
 endif
 " When open a new file remember the cursor position of the last editing
@@ -76,12 +76,12 @@ set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd WinEnter,FocusGained    * setlocal cursorline
-    autocmd WinLeave,FocusLost      * setlocal nocursorline
-    autocmd InsertEnter             * setlocal nocursorline nohlsearch
-    autocmd InsertLeave             * setlocal cursorline hlsearch
-    autocmd VimEnter                * hi CursorLine ctermfg=Black ctermbg=Gray
-    autocmd ColorScheme             * hi CursorLine ctermfg=Black ctermbg=Gray
+    autocmd BufWinEnter,WinEnter,FocusGained    * setlocal cursorline
+    autocmd BufWinLeave,WinLeave,FocusLost      * setlocal nocursorline
+    autocmd InsertEnter                         * setlocal nocursorline nohlsearch
+    autocmd InsertLeave                         * setlocal cursorline hlsearch
+    autocmd VimEnter                            * hi CursorLine ctermfg=Black ctermbg=Gray
+    autocmd ColorScheme                         * hi CursorLine ctermfg=Black ctermbg=Gray
 augroup END
 
 if has('gui_running')
@@ -112,6 +112,8 @@ set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-nu
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 nnoremap <F8>      :cn<Cr>
 nnoremap <S-F8>    :cp<Cr>
+nnoremap <C-F8>    :botright cwindow<Cr>
+nnoremap <C-S-F8>  :cclose<Cr>
 
 "Yanking
 nnoremap Y yg_
@@ -121,33 +123,40 @@ noremap <leader>P "*P
 
 "Fonts
 if has("directx")
-  set renderoptions=type:directx,taamode:1
+    set encoding=utf-8 "Repeated here to guarantee that it is available for 'renderoptions'
+    set renderoptions=type:directx,taamode:1
 endif
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    set guifont=Consolas:h11
+    set guifont=DejaVu\ Sans\ Mono:h12
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
 "Completion
 if has("autocmd") && exists("+omnifunc")
-    autocmd Filetype *
-            \	if &omnifunc == "" |
-            \		setlocal omnifunc=syntaxcomplete#Complete |
-            \	endif
+    augroup completion
+        autocmd!
+        autocmd Filetype *
+                \	if &omnifunc == "" |
+                \		setlocal omnifunc=syntaxcomplete#Complete |
+                \	endif
+    augroup END
 endif
 set showfulltag completeopt+=menuone shortmess+=c
 set wildmode+=list:longest
 
 "Comment blocks
-autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
-autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
-autocmd FileType conf,fstab          let b:comment_leader = '# '
-autocmd FileType tex                 let b:comment_leader = '% '
-autocmd FileType mail                let b:comment_leader = '> '
-autocmd FileType sql                 let b:comment_leader = '-- '
-autocmd FileType vim                 let b:comment_leader = '" '
+augroup comments
+    autocmd!
+    autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
+    autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
+    autocmd FileType conf,fstab          let b:comment_leader = '# '
+    autocmd FileType tex                 let b:comment_leader = '% '
+    autocmd FileType mail                let b:comment_leader = '> '
+    autocmd FileType sql                 let b:comment_leader = '-- '
+    autocmd FileType vim                 let b:comment_leader = '" '
+augroup END
 noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\(\s*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
 noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
 
@@ -166,3 +175,4 @@ nnoremap <leader>. @:
 "Others
 set visualbell belloff+=backspace,cursor
 set foldlevelstart=1 foldmethod=marker
+set laststatus=2 statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
