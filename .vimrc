@@ -34,7 +34,7 @@ endif
 "Line wrapping and marker visibilities
 nnoremap <F1> :setlocal wrap!<Cr>:setlocal wrap?<Cr>
 nnoremap <F2> :setlocal list!<Cr>:setlocal list?<Cr>
-set linebreak textwidth=78
+set linebreak 
 set sidescroll=1 sidescrolloff=1
 if has('gui_running')
     let &listchars = "tab:→ ,trail:·,extends:»,precedes:«,nbsp:␣"
@@ -114,16 +114,19 @@ augroup line_number_colour
 augroup END
 
 "Grep
-cnoreabbrev grep silent grep!
-set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
-nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
+set grepprg=\"C:\Utilities\ripgrep\rg.exe\"\ --vimgrep\ --smart-case\ --glob\ !tags\ --glob\ !*.layout\ 
+set grepformat^=%f:%l:%c:%m
+command! -nargs=+ -bar -complete=file Grep silent grep! <args>
+nnoremap <leader>g :Grep<Space>
 nnoremap <F8>      :cn<Cr>
 nnoremap <S-F8>    :cp<Cr>
 nnoremap <C-F8>    :botright cwindow<Cr>
 nnoremap <C-S-F8>  :cclose<Cr>
 augroup quickfix_window
     autocmd!
-    autocmd QuickFixCmdPost grep botright cwindow
+    autocmd QuickFixCmdPost [^l]* botright cwindow
+    autocmd QuickFixCmdPost l*    lwindow
+    autocmd VimEnter        *     botright cwindow
 augroup END
 
 "Yanking
