@@ -12,7 +12,7 @@ set hidden
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
 
 if has('persistent_undo')
-    set undodir=~\AppData\Local\Temp\vim_undo_files
+    set undodir=$TMP\vim_undo_files
     set undofile
 endif
 " When open a new file remember the cursor position of the last editing
@@ -39,7 +39,7 @@ set sidescroll=1 sidescrolloff=1
 if has('gui_running')
     let &listchars = "tab:→ ,trail:·,extends:»,precedes:«,nbsp:␣"
     let &fillchars = "vert:|"
-    let &showbreak = "↳ "
+    let &showbreak = "¬ "
 else
     let &listchars = "tab:>-,trail:-,extends:>,precedes:<,nbsp:%"
     let &fillchars = "vert:|"
@@ -51,7 +51,8 @@ set hlsearch incsearch ignorecase smartcase
 vnoremap <leader>/ y/<C-r>"<Cr><Cr>
     "searches selected text
 nmap <leader>n  :set hlsearch! hlsearch?<Cr>
-nmap <Esc><Esc> :nohlsearch<Cr>
+    "gets rid of distractions
+nmap <Esc><Esc> :nohlsearch<Cr>:cclose<Cr>
 
 "Indenting and formatting
 set autoindent smartindent
@@ -76,8 +77,8 @@ set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd BufWinEnter,WinEnter,FocusGained    * setlocal cursorline
-    autocmd BufWinLeave,WinLeave,FocusLost      * setlocal nocursorline
+    autocmd BufWinEnter,WinEnter                * setlocal cursorline
+    autocmd BufWinLeave,WinLeave                * setlocal nocursorline
     autocmd InsertEnter                         * setlocal nocursorline nohlsearch
     autocmd InsertLeave                         * setlocal cursorline hlsearch
     autocmd VimEnter                            * hi CursorLine ctermfg=Black ctermbg=Gray
@@ -98,6 +99,11 @@ vnoremap j gj
 vnoremap k gk
 nnoremap ' `
 nnoremap g. <Esc>`[v`]<Left>
+nnoremap <Tab> }
+vnoremap <Tab> }
+nnoremap <S-Tab> {
+vnoremap <S-Tab> {
+
 
 "Number line
 set number
@@ -108,12 +114,17 @@ augroup line_number_colour
 augroup END
 
 "Grep
+cnoreabbrev grep silent grep!
 set grepprg=\"C:\Utilities\sift\sift.exe\"\ --recursive\ --smart-case\ --line-number\ --binary-skip\ --git\ --exclude-files=tags.*
 nnoremap <leader>g :grep<Space>"\b<cword>\b"<Cr>
 nnoremap <F8>      :cn<Cr>
 nnoremap <S-F8>    :cp<Cr>
 nnoremap <C-F8>    :botright cwindow<Cr>
 nnoremap <C-S-F8>  :cclose<Cr>
+augroup quickfix_window
+    autocmd!
+    autocmd QuickFixCmdPost grep botright cwindow
+augroup END
 
 "Yanking
 nnoremap Y yg_
@@ -129,7 +140,7 @@ endif
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    set guifont=DejaVu\ Sans\ Mono:h12
+    set guifont=Source\ Code\ Pro:h10
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
@@ -175,4 +186,4 @@ nnoremap <leader>. @:
 "Others
 set visualbell belloff+=backspace,cursor
 set foldlevelstart=1 foldmethod=marker
-set laststatus=2 statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
+set laststatus=1 statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
