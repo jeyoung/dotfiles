@@ -77,8 +77,8 @@ set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd BufWinEnter,WinEnter                * setlocal cursorline
-    autocmd BufWinLeave,WinLeave                * setlocal nocursorline
+    autocmd BufWinEnter,WinEnter,FocusGained    * setlocal cursorline
+    autocmd BufWinLeave,WinLeave,FocusLost      * setlocal nocursorline
     autocmd InsertEnter                         * setlocal nocursorline nohlsearch
     autocmd InsertLeave                         * setlocal cursorline hlsearch
     autocmd VimEnter                            * hi CursorLine ctermfg=Black ctermbg=Gray
