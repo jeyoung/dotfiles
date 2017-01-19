@@ -10,8 +10,8 @@ endif
 set encoding=utf-8
 set hidden
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
-nnoremap <C-Right> :bn
-nnoremap <C-Left>  :bp
+nnoremap <C-Right> :bn<Cr>
+nnoremap <C-Left>  :bp<Cr>
 
 if has('persistent_undo')
     set undodir=$TMP\vim_undo_files
