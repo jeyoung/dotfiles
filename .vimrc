@@ -10,6 +10,8 @@ endif
 set encoding=utf-8
 set hidden
 nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
+nnoremap <C-Right> :bn
+nnoremap <C-Left>  :bp
 
 if has('persistent_undo')
     set undodir=$TMP\vim_undo_files
@@ -66,10 +68,6 @@ set showmatch matchpairs+=<:>
 "Window navigation
 nnoremap <C-Tab>   <C-w>w
 nnoremap <C-S-Tab> <C-w>W
-nnoremap <C-Right> <C-w>l
-nnoremap <C-Down>  <C-w>j
-nnoremap <C-Left>  <C-w>h
-nnoremap <C-Up>    <C-w>k
 nnoremap <A-m>     <C-w>o
 
 "Cursorline
@@ -77,8 +75,8 @@ set cursorline
 nnoremap <silent> <leader>c :setlocal cursorline!<CR>
 augroup cursorline_toggle
     autocmd!
-    autocmd BufWinEnter,WinEnter                * setlocal cursorline
-    autocmd BufWinLeave,WinLeave                * setlocal nocursorline
+    autocmd BufWinEnter,WinEnter,FocusGained    * setlocal cursorline
+    autocmd BufWinLeave,WinLeave,FocusLost      * setlocal nocursorline
     autocmd InsertEnter                         * setlocal nocursorline nohlsearch
     autocmd InsertLeave                         * setlocal cursorline hlsearch
     autocmd VimEnter                            * hi CursorLine ctermfg=Black ctermbg=Gray
@@ -118,6 +116,7 @@ set grepprg=\"C:\Utilities\ripgrep\rg.exe\"\ --vimgrep\ --smart-case\ --glob\ !t
 set grepformat^=%f:%l:%c:%m
 command! -nargs=+ -bar -complete=file Grep silent grep! <args>
 nnoremap <leader>g :Grep<Space>
+nnoremap <leader>* :Grep<Space>\"<cword>\"<Space>
 nnoremap <F8>      :cn<Cr>
 nnoremap <S-F8>    :cp<Cr>
 nnoremap <C-F8>    :botright cwindow<Cr>
@@ -143,7 +142,7 @@ endif
 if has('gui_running')
     set guioptions-=m
     set guioptions-=T
-    set guifont=Source\ Code\ Pro:h10
+    set guifont=Cousine:h10
     nnoremap <F3> :set gfn=*<Cr>
 endif
 
@@ -189,4 +188,3 @@ nnoremap <leader>. @:
 "Others
 set visualbell belloff+=backspace,cursor
 set foldlevelstart=1 foldmethod=marker
-set laststatus=1 statusline=%<%f\ %h%m%r%=%k[%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ %-14.(%l,%c%V%)\ %P
