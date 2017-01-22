@@ -1,190 +1,20 @@
 if version >= 800
-    unlet! skip_defaults_vim
-    source $VIMRUNTIME/defaults.vim
-
-    "Matchit
-    packadd! matchit
+	source $VIMRUNTIME/defaults.vim
 endif
 
-"Buffers
-set encoding=utf-8
 set hidden
-nnoremap <silent> <leader>b :buffers<CR>:buffer<space>
-nnoremap <C-Right> :bn<Cr>
-nnoremap <C-Left>  :bp<Cr>
+set visualbell
 
-if has('persistent_undo')
-    set undodir=$TMP\vim_undo_files
-    set undofile
-endif
-" When open a new file remember the cursor position of the last editing
-if has("autocmd")
-    " When editing a file, always jump to the last cursor position
-    autocmd BufReadPost * if line("'\"") | exe "'\"" | endif
-endif
+set tabstop=4 softtabstop=4 shiftwidth=4
+set sidescroll=5 listchars+="tab:→ ,precedes:«,extends:»"
+let &showbreak="¬ "
+set wrap linebreak
 
-"Syntax highlighting
-if has('syntax')
-    set spelllang=en_gb
-    map <F7> :if exists("g:syntax_on") <Bar>
-                \   syntax off <Bar>
-                \ else <Bar>
-                \   syntax enable <Bar>
-                \ endif <CR>
-endif
+set guifont=Liberation\ Mono:h11
+set encoding=utf-8 renderoptions=type:directx,taamode:1
 
-"Line wrapping and marker visibilities
-nnoremap <F1> :setlocal wrap!<Cr>:setlocal wrap?<Cr>
-nnoremap <F2> :setlocal list!<Cr>:setlocal list?<Cr>
-set linebreak 
-set sidescroll=1 sidescrolloff=1
-if has('gui_running')
-    let &listchars = "tab:→ ,trail:·,extends:»,precedes:«,nbsp:␣"
-    let &fillchars = "vert:|"
-    let &showbreak = "¬ "
-else
-    let &listchars = "tab:>-,trail:-,extends:>,precedes:<,nbsp:%"
-    let &fillchars = "vert:|"
-    let &showbreak = "¬ "
-endif
-
-"Searching
-set hlsearch incsearch ignorecase smartcase
-vnoremap <leader>/ y/<C-r>"<Cr><Cr>
-    "searches selected text
-nmap <leader>n  :set hlsearch! hlsearch?<Cr>
-    "gets rid of distractions
-nmap <Esc><Esc> :nohlsearch<Cr>:cclose<Cr>
-
-"Indenting and formatting
-set autoindent smartindent
-set expandtab smarttab shiftwidth=4 tabstop=4 softtabstop=4
-set formatoptions+=rn1j2
-
-"Insert mode
-inoremap jj <Esc>
-set showmatch matchpairs+=<:>
-
-"Window navigation
-nnoremap <C-Tab>   <C-w>w
-nnoremap <C-S-Tab> <C-w>W
-nnoremap <A-m>     <C-w>o
-
-"Cursorline
-set cursorline
-nnoremap <silent> <leader>c :setlocal cursorline!<CR>
-augroup cursorline_toggle
-    autocmd!
-    autocmd BufWinEnter,WinEnter,FocusGained    * setlocal cursorline
-    autocmd BufWinLeave,WinLeave,FocusLost      * setlocal nocursorline
-    autocmd InsertEnter                         * setlocal nocursorline nohlsearch
-    autocmd InsertLeave                         * setlocal cursorline hlsearch
-    autocmd VimEnter                            * hi CursorLine ctermfg=Black ctermbg=Gray
-    autocmd ColorScheme                         * hi CursorLine ctermfg=Black ctermbg=Gray
-augroup END
-
-if has('gui_running')
-    augroup width_and_height
-        autocmd!
-        autocmd VimEnter * set columns=999 lines=999
-    augroup END
-endif
-
-"Motion
-nnoremap j gj
-nnoremap k gk
-vnoremap j gj
-vnoremap k gk
-nnoremap ' `
-nnoremap g. <Esc>`[v`]<Left>
-nnoremap <Tab> }
-vnoremap <Tab> }
-nnoremap <S-Tab> {
-vnoremap <S-Tab> {
-
-
-"Number line
-set number
-augroup line_number_colour
-    autocmd!
-    autocmd VimEnter     * hi LineNr guifg=#999999 ctermfg=Gray
-    autocmd ColorScheme  * hi LineNr guifg=#999999 ctermfg=Gray
-augroup END
-
-"Grep
 set grepprg=\"C:\Utilities\ripgrep\rg.exe\"\ --vimgrep\ --smart-case\ --glob\ !tags\ --glob\ !*.layout\ 
 set grepformat^=%f:%l:%c:%m
-command! -nargs=+ -bar -complete=file Grep silent grep! <args>
-nnoremap <leader>g :Grep<Space>
-nnoremap <leader>* :Grep<Space>\"<cword>\"<Space>
-nnoremap <F8>      :cn<Cr>
-nnoremap <S-F8>    :cp<Cr>
-nnoremap <C-F8>    :botright cwindow<Cr>
-nnoremap <C-S-F8>  :cclose<Cr>
-augroup quickfix_window
-    autocmd!
-    autocmd QuickFixCmdPost [^l]* botright cwindow
-    autocmd QuickFixCmdPost l*    lwindow
-    autocmd VimEnter        *     botright cwindow
-augroup END
 
-"Yanking
-nnoremap Y yg_
-noremap <leader>y "*y
-noremap <leader>p "*p
-noremap <leader>P "*P
-
-"Fonts
-if has("directx")
-    set encoding=utf-8 "Repeated here to guarantee that it is available for 'renderoptions'
-    set renderoptions=type:directx,taamode:1
-endif
-if has('gui_running')
-    set guioptions-=m
-    set guioptions-=T
-    set guifont=Cousine:h10
-    nnoremap <F3> :set gfn=*<Cr>
-endif
-
-"Completion
-if has("autocmd") && exists("+omnifunc")
-    augroup completion
-        autocmd!
-        autocmd Filetype *
-                \	if &omnifunc == "" |
-                \		setlocal omnifunc=syntaxcomplete#Complete |
-                \	endif
-    augroup END
-endif
-set showfulltag completeopt+=menuone shortmess+=c
-set wildmode+=list:longest
-
-"Comment blocks
-augroup comments
-    autocmd!
-    autocmd FileType c,cpp,cs,java,scala let b:comment_leader = '// '
-    autocmd FileType sh,ruby,python,perl let b:comment_leader = '# '
-    autocmd FileType conf,fstab          let b:comment_leader = '# '
-    autocmd FileType tex                 let b:comment_leader = '% '
-    autocmd FileType mail                let b:comment_leader = '> '
-    autocmd FileType sql                 let b:comment_leader = '-- '
-    autocmd FileType vim                 let b:comment_leader = '" '
-augroup END
-noremap <silent> <leader>cc :<C-B>silent <C-E>s/^\(\s*\)/\1<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
-noremap <silent> <leader>cu :<C-B>silent <C-E>s/^\(\s*\)\V<C-R>=escape(b:comment_leader,'\/')<CR>/\1/e<CR>:nohlsearch<CR>
-
-"Clear trailing spaces
-nnoremap <leader>cs :%s/\s\+$/<Cr>
-
-"Save
-nnoremap <leader>w :w<Cr>
-
-"Find
-nnoremap <leader>f :find **/*
-
-"Repeat last command
-nnoremap <leader>. @:
-
-"Others
-set visualbell belloff+=backspace,cursor
-set foldlevelstart=1 foldmethod=marker
+nnoremap <silent> <F1> :set hls!<Cr>
+nnoremap <silent> <F2> :set wrap! list!<Cr>
