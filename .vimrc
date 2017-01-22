@@ -6,7 +6,7 @@ set hidden
 set visualbell
 
 set tabstop=4 softtabstop=4 shiftwidth=4
-set sidescroll=5 listchars+="tab:→ ,precedes:«,extends:»"
+set sidescroll=5 listchars+=tab:→\ ,precedes:«,extends:»
 let &showbreak="¬ "
 set wrap linebreak
 
