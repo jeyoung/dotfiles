@@ -9,13 +9,13 @@ set hidden
 set laststatus=2
 
 set autowrite
-set undodir^=$TMP undolevels=5000 undodir 
+set undodir^=$TMP undolevels=5000 undofile 
 set updatecount=10
 
 set hlsearch incsearch ignorecase smartcase
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1 
-set guifont=Lucida\ Console
+set guifont=Lucida\ Console:h10
 
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
 set autoindent smartindent
@@ -36,3 +36,5 @@ inoremap <silent> <C-Enter> <Esc>
 
 set grepprg=\"C:\Utilities\ripgrep\rg.exe\"\ --vimgrep\ --smart-case\ --glob\ !tags\ --glob\ !*.layout\ --glob\ !*.temp
 set grepformat^=%f:%l:%c:%m
+
+syntax off
