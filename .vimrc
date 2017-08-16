@@ -24,3 +24,5 @@ let &showbreak="¬ "
 nnoremap <silent> <F1>  :ls<Cr>:b<Space>
 nnoremap <silent> <F2>  :nohlsearch<Cr>
 
+set grepprg=\"C:\Utilities\ripgrep\rg.exe\"\ --vimgrep\ --smart-case\ --glob\ !tags\ --glob\ !*.layout\ --glob\ !*.temp
+set grepformat^=%f:%l:%c:%m
