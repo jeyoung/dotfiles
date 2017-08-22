@@ -3,6 +3,12 @@ if version >= 800
     packadd! matchit
 endif
 
+set wildignore+=**/obj*/**,**/bin*/**
+
+if has('gui')
+    set columns=140 lines=50
+endif
+
 set visualbell
 
 set hidden 
@@ -17,7 +23,7 @@ set hlsearch incsearch ignorecase smartcase
 set encoding=utf-8 renderoptions=type:directx,taamode:1 
 set guifont=Lucida\ Console:h10
 
-set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab
+set shiftwidth=4 softtabstop=-1 expandtab smarttab
 set autoindent smartindent
 
 set linebreak
@@ -34,7 +40,7 @@ nnoremap <silent> <A-Down>  :cnext<Cr>
 
 inoremap <silent> <C-Enter> <Esc>
 
-set grepprg=\"C:\Utilities\ripgrep\rg.exe\"\ --vimgrep\ --smart-case\ --glob\ !tags\ --glob\ !*.layout\ --glob\ !*.temp
+set grepprg=\"C:\Utilities\sift\sift.exe\"\ --line-number\ --smart-case\ --recursive\ --blocksize=4M\ --exclude-files=tags
 set grepformat^=%f:%l:%c:%m
 
 syntax off
