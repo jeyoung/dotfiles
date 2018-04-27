@@ -23,7 +23,6 @@ endif
 set visualbell
 
 set hidden 
-set number
 set laststatus=1
 
 set autowrite
@@ -36,7 +35,7 @@ set path& | let &path .= "**"
 set hlsearch incsearch ignorecase smartcase
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1 
-set guifont=Fira\ Mono:h10
+set guifont=Consolas:h12
 
 set shiftwidth=4 softtabstop=-1 expandtab smarttab
 set autoindent smartindent
@@ -44,7 +43,11 @@ set autoindent smartindent
 set linebreak
 let &showbreak="¬ "
 
+set number
 set cursorline
+
+set foldlevel=999
+set foldmethod=indent
 
 nnoremap <silent> <F1>  :ls<Cr>:b<Space>
 nnoremap <silent> <BS>  :nohlsearch<Cr>
