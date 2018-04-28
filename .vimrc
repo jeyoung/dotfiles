@@ -37,6 +37,8 @@ set undodir^=$TMP undolevels=5000 undofile
 set updatecount=10
 
 set incsearch ignorecase smartcase hlsearch
+set path& | let &path .= "**"
+
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
 set guifont=Consolas:h12
@@ -51,6 +53,12 @@ set wrap
 
 set linebreak
 let &showbreak="¬ "
+
+set number
+set cursorline
+
+set foldlevel=999
+set foldmethod=indent
 
 nnoremap <silent> <F1>      :ls<Cr>:b<Space>
 nnoremap <silent> <BS>      :nohlsearch<Cr>
