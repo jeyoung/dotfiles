@@ -10,18 +10,17 @@ set wildignore+=**/obj*/**,**/bin*/**
 set wildmode=full
 set wildcharm=<C-z>
 
-
-nnoremap ,cs :grep "(public\\|protected\\|internal)(\s+(\w[a-zA-Z0-9_]*))+(<.+>)?\s+\b<C-r><C-w>\b" --ext=cs<Cr>
-nnoremap ,js :grep "(function\s+\b<C-r><C-w>\s*\()\\|(\b<C-r><C-w>\b\s+=\s+function\s*\()" --ext=js<Cr>
-
 if has('gui')
     set guioptions-=T
-    set guioptions-=l
     set guioptions-=L
-    set guioptions-=r
     set guioptions-=m
     set guioptions-=e
 endif
+
+augroup change_number_colour
+    au!
+    au VimEnter * highlight LineNr guifg=gray
+augroup END
 
 set visualbell
 
@@ -38,7 +37,7 @@ set updatecount=10
 set incsearch ignorecase smartcase hlsearch
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
-set guifont=Consolas:h12
+set guifont=Lucida\ Console:h13
 
 set shiftwidth=4 softtabstop=-1 expandtab smarttab
 
