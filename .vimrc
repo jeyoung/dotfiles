@@ -6,7 +6,7 @@ endif
 set directory=$TMP
 set path& | let &path .= "**"
 
-set wildignore+=**/obj*/**,**/bin*/**
+set wildignore+=**/obj*/**,**/bin*/**,**/node_modules/**
 set wildmode=full
 set wildcharm=<C-z>
 
@@ -37,7 +37,7 @@ set updatecount=10
 set incsearch ignorecase smartcase hlsearch
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
-set guifont=Lucida\ Console:h13
+set guifont=Consolas:h12
 
 set shiftwidth=4 softtabstop=-1 expandtab smarttab
 
@@ -50,7 +50,7 @@ set wrap
 set linebreak
 let &showbreak="¬ "
 
-set number
+set nonumber
 set cursorline
 
 set foldlevel=999
