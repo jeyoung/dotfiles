@@ -1,4 +1,4 @@
-set runtimepath+=~\Source\GitHub\vim-ps1
+set runtimepath+=~/Source/GitHub/vim-ps1
 
 if version >= 800
     source $VIMRUNTIME/defaults.vim
@@ -38,7 +38,7 @@ set autowrite
 set undodir^=$TMP undolevels=5000 undofile
 set updatecount=10
 
-set viminfofile=.viminfo
+set viminfofile=~/.viminfo
 
 set incsearch ignorecase smartcase hlsearch
 set autoindent
