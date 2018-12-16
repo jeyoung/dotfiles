@@ -38,6 +38,8 @@ set autowrite
 set undodir^=$TMP undolevels=5000 undofile
 set updatecount=10
 
+set viminfofile=.viminfo
+
 set incsearch ignorecase smartcase hlsearch
 set autoindent
 
@@ -57,7 +59,6 @@ set linebreak
 let &showbreak="¬ "
 
 set number
-set cursorline
 
 set foldlevel=999
 set foldmethod=indent
