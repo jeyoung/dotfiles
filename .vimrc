@@ -1,12 +1,16 @@
+set runtimepath+=~\Source\GitHub\vim-ps1
+
 if version >= 800
     source $VIMRUNTIME/defaults.vim
     packadd! matchit
 endif
 
 set directory=$TMP
-set path& | let &path .= "**"
+set path&
+set path+=**
 
-set wildignore+=**/obj*/**,**/bin*/**,**/node_modules/**
+set wildignore&
+set wildignore+=**/obj,**/bin,**/node_modules
 set wildmode=full
 set wildcharm=<C-z>
 
@@ -35,14 +39,16 @@ set undodir^=$TMP undolevels=5000 undofile
 set updatecount=10
 
 set incsearch ignorecase smartcase hlsearch
+set autoindent
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
 set guifont=Consolas:h12
 
-set shiftwidth=4 softtabstop=-1 expandtab smarttab
+set shiftwidth=4 softtabstop=-1 expandtab
+set autoindent
 
-set listchars=tab:»\ ,trail:·,precedes:<,extends:>,nbsp:+
-set list
+set listchars&
+set nolist
 
 set sidescroll=1 sidescrolloff=10
 set wrap
@@ -50,7 +56,7 @@ set wrap
 set linebreak
 let &showbreak="¬ "
 
-set nonumber
+set number
 set cursorline
 
 set foldlevel=999
@@ -65,9 +71,11 @@ nnoremap <silent> <A-Right> :bnext<Cr>
 nnoremap <silent> <A-Up>    :cprevious<Cr>
 nnoremap <silent> <A-Down>  :cnext<Cr>
 
+nnoremap <leader>c          :set cursorline!<Cr>
+
 inoremap <silent> <C-Enter> <Esc>
 
-set grepprg=\"C:\Utilities\sift\sift.exe\"\ --binary-skip\ --line-number\ --blocksize=4M\ --recursive\ --smart-case\ --exclude-files=tags
-set grepformat^=%f:%l:%c:%m
-
 syntax on
+filetype plugin indent on
+
+set spell
