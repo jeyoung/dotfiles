@@ -30,7 +30,7 @@ set encoding=utf-8 renderoptions=type:directx,taamode:1
 set guifont=Consolas:h12
 
 set visualbell
-set laststatus=1
+set laststatus=2
 
 augroup change_number_colour
     au!
@@ -44,24 +44,27 @@ set viminfofile=~/.viminfo
 set incsearch ignorecase smartcase hlsearch
 set autoindent
 
-set shiftwidth=4 softtabstop=-1 autoindent expandtab&
+set shiftwidth=4 softtabstop=-1 autoindent expandtab
 
-set listchars=tab:→\ ,extends:»,precedes:« list
+set listchars=tab:→\ ,trail:·,extends:»,precedes:« list
 
 set scrolloff=2 sidescroll=1 sidescrolloff=10 nowrap
 
 set linebreak breakindent
 let &showbreak="¬ "
 
-set number
+set nonumber
 
 set foldlevel=999
 set foldmethod=indent
 
 nnoremap <silent> k gk
 nnoremap <silent> j gj
+nnoremap <silent> 0 g0
+nnoremap <silent> $ g$
 
-nnoremap <silent> <F1>      :ls<Cr>:b<Space>
+nnoremap <F1>               :ls<Cr>:b
+nnoremap <silent> <F2>      :b#<Cr>
 nnoremap <silent> <BS>      :nohlsearch<Cr>
 
 nnoremap <silent> <A-Left>  :bprevious<Cr>
@@ -70,11 +73,14 @@ nnoremap <silent> <A-Right> :bnext<Cr>
 nnoremap <silent> <A-Up>    :cprevious<Cr>
 nnoremap <silent> <A-Down>  :cnext<Cr>
 
-nnoremap <leader>c          :set cursorline!<Cr>
-nnoremap <leader>l	    :set list!<Cr>:set list?<Cr>
-nnoremap <leader>n          :set number!<Cr>
-nnoremap <leader>w          :set wrap!<Cr>:set wrap?<Cr>
+nnoremap <silent> <leader>c :set cursorline!<Cr>
+nnoremap <silent> <leader>l :set list!<Cr>:set list?<Cr>
+nnoremap <silent> <leader>n :set number!<Cr>
+nnoremap <silent> <leader>w :set wrap!<Cr>:set wrap?<Cr>
+nnoremap <silent> <leader>s :set spell!<Cr>:set spell?<Cr>
 
 set grepprg=C:\Utilities\ripgrep\rg.exe\ -nHS\ --max-columns=150\ --glob=!git/*\ --glob=!tags
 
 filetype plugin indent on
+
+set lazyredraw
