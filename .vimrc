@@ -79,8 +79,11 @@ nnoremap <silent> <leader>n :set number!<Cr>
 nnoremap <silent> <leader>w :set wrap!<Cr>:set wrap?<Cr>
 nnoremap <silent> <leader>s :set spell!<Cr>:set spell?<Cr>
 
-set grepprg=C:\Utilities\ripgrep\rg.exe\ -nHS\ --max-columns=150\ --glob=!git/*\ --glob=!tags
+nnoremap <silent> <leader>. :s/\v\s+$//g<Cr>
+vnoremap <silent> <leader>. :s/\v\s+$//g<Cr>
 
 filetype plugin indent on
 
 set lazyredraw
+
+set grepprg=C:\Utilities\ripgrep\rg.exe\ -nHS\ --max-columns=150\ --glob=!git/*\ --glob=!tags
