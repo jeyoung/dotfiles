@@ -1,4 +1,4 @@
-set runtimepath+=~/Source/GitHub/vim-ps1
+set runtimepath+=~\Source\GitHub\vim-ps1
 
 if version >= 800
     source $VIMRUNTIME/defaults.vim
@@ -23,7 +23,7 @@ if has('gui')
     set guioptions-=e
     set guioptions-=L
     set guioptions-=T
-    set columns=150 lines=45
+    set lines=45 columns=140
 endif
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
@@ -37,7 +37,9 @@ augroup change_number_colour
     au VimEnter * highlight LineNr guifg=Grey50
 augroup END
 
-set foldmethod=indent foldlevel=999
+set autowrite
+set undolevels=5000 undofile
+set updatecount=10
 
 set viminfofile=~/.viminfo
 
@@ -57,6 +59,8 @@ set nonumber
 
 set foldlevel=999
 set foldmethod=indent
+
+set spell
 
 nnoremap <silent> k gk
 nnoremap <silent> j gj
