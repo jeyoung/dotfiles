@@ -6,7 +6,6 @@ if version >= 800
 endif
 
 set path&
-set path+=**
 
 set directory=$TMP updatecount=10
 set undodir^=$TMP undolevels=5000 undofile
@@ -27,10 +26,10 @@ if has('gui')
 endif
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
-set guifont=Consolas:h12
+set guifont=Consolas:h11
 
 set visualbell
-set laststatus=2
+set laststatus=1
 
 augroup change_number_colour
     au!
@@ -50,10 +49,9 @@ set shiftwidth=4 softtabstop=-1 autoindent expandtab
 
 set listchars=tab:→\ ,trail:·,extends:»,precedes:« list
 
-set scrolloff=2 sidescroll=1 sidescrolloff=10 nowrap
+set scrolloff=2 sidescroll=1 sidescrolloff=10 wrap&
 
-set linebreak breakindent
-let &showbreak="¬ "
+set linebreak
 
 set nonumber
 
@@ -64,8 +62,6 @@ set spell
 
 nnoremap <silent> k gk
 nnoremap <silent> j gj
-nnoremap <silent> 0 g0
-nnoremap <silent> $ g$
 
 nnoremap <F1>               :ls<Cr>:b
 nnoremap <silent> <F2>      :b#<Cr>
@@ -88,6 +84,6 @@ vnoremap <silent> <leader>. :s/\v\s+$//g<Cr>
 
 filetype plugin indent on
 
-set lazyredraw
-
-set grepprg=C:\Utilities\ripgrep\rg.exe\ -nHS\ --max-columns=150\ --glob=!git/*\ --glob=!tags
+if has("patch-8.1.0360")
+    set diffopt+=internal,algorithm:patience
+endif
