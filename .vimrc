@@ -31,7 +31,7 @@ set laststatus=1
 
 augroup change_number_colour
     au!
-    au VimEnter * highlight LineNr guifg=Grey50
+    au VimEnter * highlight LineNr guifg=Grey
 augroup END
 
 set autowrite
@@ -50,8 +50,9 @@ set listchars=tab:→\ ,trail:·,extends:»,precedes:« list
 set scrolloff=2 sidescroll=1 sidescrolloff=10 wrap&
 
 set linebreak
+let &showbreak=" ¬"
 
-set nonumber
+set number
 
 set foldlevel=999
 set foldmethod=indent
