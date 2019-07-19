@@ -13,7 +13,6 @@ set undodir^=$TMP undolevels=5000 undofile
 set hidden autowrite
 
 set wildignore&
-set wildignore+=**/obj,**/bin,**/node_modules
 set wildmode=full
 set wildcharm=<C-z>
 
@@ -22,7 +21,6 @@ if has('gui')
     set guioptions-=e
     set guioptions-=L
     set guioptions-=T
-    set lines=45 columns=140
 endif
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
@@ -84,6 +82,4 @@ vnoremap <silent> <leader>. :s/\v\s+$//g<Cr>
 
 filetype plugin indent on
 
-if has("patch-8.1.0360")
-    set diffopt+=internal,algorithm:patience
-endif
+set diffopt+=internal,algorithm:patience
