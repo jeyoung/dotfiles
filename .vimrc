@@ -7,8 +7,10 @@ endif
 
 set path&
 
-set directory=$TMP updatecount=10
-set undodir^=$TMP undolevels=5000 undofile
+set backup& writebackup backupdir^=~/vimfiles/backup
+
+set directory^=~/vimfiles/swap updatecount=10
+set undodir^=~/vimfiles/undo undolevels=5000 undofile
 
 set hidden autowrite
 
@@ -38,7 +40,7 @@ set autowrite
 set undolevels=5000 undofile
 set updatecount=10
 
-set viminfofile=~/.viminfo
+set viminfofile=~/vimfiles/viminfo
 
 set incsearch ignorecase smartcase hlsearch
 set autoindent
@@ -50,7 +52,7 @@ set listchars=tab:→\ ,trail:·,extends:»,precedes:« list
 set scrolloff=2 sidescroll=1 sidescrolloff=10 wrap&
 
 set linebreak
-let &showbreak=" ¬"
+let &showbreak=" ¬ "
 
 set number
 
