@@ -33,7 +33,8 @@ set laststatus=1
 
 augroup change_number_colour
     au!
-    au VimEnter * highlight LineNr guifg=Grey
+    au VimEnter * highlight LineNr guifg=Gray ctermfg=Gray
+    au Colorscheme * highlight LineNr guifg=Gray ctermfg=Gray
 augroup END
 
 set autowrite
@@ -59,7 +60,7 @@ set number
 set foldlevel=999
 set foldmethod=indent
 
-set spell
+set spell&
 
 nnoremap <silent> k gk
 nnoremap <silent> j gj
@@ -85,4 +86,4 @@ vnoremap <silent> <leader>. :s/\v\s+$//g<Cr>
 
 filetype plugin indent on
 
-set diffopt+=internal,algorithm:patience
+set diffopt+=internal,algorithm:patience,indent-heuristic
