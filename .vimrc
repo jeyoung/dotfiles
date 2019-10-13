@@ -23,6 +23,7 @@ if has('gui')
     set guioptions-=e
     set guioptions-=L
     set guioptions-=T
+    set lines=40 columns=140
 endif
 
 set encoding=utf-8 renderoptions=type:directx,taamode:1
@@ -43,7 +44,7 @@ set updatecount=10
 
 set viminfofile=~/vimfiles/viminfo
 
-set incsearch ignorecase smartcase hlsearch
+set incsearch ignorecase smartcase nohlsearch
 set autoindent
 
 set shiftwidth=4 softtabstop=-1 autoindent expandtab
@@ -53,7 +54,7 @@ set listchars=tab:→\ ,trail:·,extends:»,precedes:« list
 set scrolloff=2 sidescroll=1 sidescrolloff=10 wrap&
 
 set linebreak
-let &showbreak=" ¬ "
+let &showbreak=""
 
 set number
 
@@ -67,7 +68,7 @@ nnoremap <silent> j gj
 
 nnoremap <F1>               :ls<Cr>:b
 nnoremap <silent> <F2>      :b#<Cr>
-nnoremap <silent> <BS>      :nohlsearch<Cr>
+nnoremap <silent> <BS>      :set hlsearch!<Cr>
 
 nnoremap <silent> <A-Left>  :bprevious<Cr>
 nnoremap <silent> <A-Right> :bnext<Cr>
