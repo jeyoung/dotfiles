@@ -18,7 +18,7 @@ set wildignore&
 set wildmode=full
 set wildcharm=<C-z>
 
-if has('gui')
+if has('gui_running')
     set guioptions-=m
     set guioptions-=e
     set guioptions-=L
