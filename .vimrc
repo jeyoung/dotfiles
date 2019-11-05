@@ -63,8 +63,10 @@ set foldmethod=indent
 
 set spell&
 
-nnoremap <silent> k gk
-nnoremap <silent> j gj
+inoremap <F1>               <Nop>
+
+inoremap <C-S>              <C-O>:update<Cr>
+nnoremap <C-S>              :update<Cr>
 
 nnoremap <F1>               :ls<Cr>:b
 nnoremap <silent> <F2>      :b#<Cr>
