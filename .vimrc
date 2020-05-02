@@ -12,7 +12,7 @@ set backup& writebackup backupdir^=~/vimfiles/backup
 set directory^=~/vimfiles/swap updatecount=10
 set undodir^=~/vimfiles/undo undolevels=5000 undofile
 
-set hidden autowrite
+set hidden
 
 set wildignore&
 set wildmode=full
@@ -90,3 +90,6 @@ vnoremap <silent> <leader>. :s/\v\s+$//g<Cr>
 filetype plugin indent on
 
 set diffopt+=internal,algorithm:patience,indent-heuristic
+set completeopt=menu,menuone,preview,noselect,noinsert
+
+syn off
