@@ -5,6 +5,7 @@ if version >= 800
     packadd! matchit
 endif
 
+set hidden
 set writebackup backupdir^=~/vimfiles/backup
 set directory^=~/vimfiles/swap
 set undofile undodir^=~/vimfiles/undo undolevels=5000
@@ -18,12 +19,13 @@ if has('gui_running')
     set lines=40 columns=140
 endif
 
+set ruler
 set visualbell
 
 set encoding=utf-8 renderoptions=taamode:2
-set guifont=DejaVu\ Sans\ Mono\:h11
+set guifont=Consolas:h11
 
-set incsearch smartcase nohlsearch
+set incsearch ignorecase smartcase nohlsearch
 
 set shiftwidth=4 softtabstop=-1 autoindent expandtab
 
@@ -39,6 +41,7 @@ set diffopt+=internal,algorithm:patience
 augroup change_number_colour
     au!
     au VimEnter    * highlight LineNr guifg=Grey
+    au VimEnter    * highlight Cursor guibg=Green ctermbg=Green
     au Colorscheme * highlight LineNr guifg=Grey
     au Colorscheme * highlight Cursor guibg=Green ctermbg=Green
 augroup END
