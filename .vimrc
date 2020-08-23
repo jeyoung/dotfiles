@@ -8,7 +8,7 @@ endif
 set hidden
 set writebackup backupdir^=~/vimfiles/backup
 set directory^=~/vimfiles/swap
-set undofile undodir^=~/vimfiles/undo undolevels=5000
+set undofile undodir^=~/vimfiles/undo
 set viminfofile=~/vimfiles/viminfo
 
 if has('gui_running')
@@ -19,8 +19,7 @@ if has('gui_running')
     set lines=40 columns=140
 endif
 
-set ruler
-set visualbell
+set ruler visualbell termguicolors ttyfast lazyredraw
 
 set encoding=utf-8 renderoptions=taamode:2
 set guifont=Consolas:h11
