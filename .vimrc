@@ -10,23 +10,24 @@ set writebackup backupdir^=~/vimfiles/backup
 set directory^=~/vimfiles/swap
 set undofile undodir^=~/vimfiles/undo
 set viminfofile=~/vimfiles/viminfo
+set wildmode=longest,list
 
 if has('gui_running')
     set guioptions-=m
     set guioptions-=e
     set guioptions-=L
     set guioptions-=T
-    set lines=40 columns=140
+    set lines=40 columns=100
 endif
 
-set ruler visualbell termguicolors ttyfast lazyredraw
+set ruler visualbell ttyfast lazyredraw
 
 set encoding=utf-8 renderoptions=taamode:2
 set guifont=Consolas:h11
 
 set incsearch ignorecase smartcase nohlsearch
 
-set shiftwidth=4 softtabstop=-1 autoindent expandtab
+set softtabstop=-1 autoindent
 
 set scrolloff=2 sidescroll=1 sidescrolloff=10
 set listchars=tab:→\ ,trail:·,extends:»,precedes:« list
@@ -69,6 +70,14 @@ nnoremap <silent> <leader>s :set spell!<Cr>:set spell?<Cr>
 
 nnoremap <silent> <leader>. @:
 vnoremap <silent> <leader>. @:
+
+nnoremap <silent> <leader>y "*y
+vnoremap <silent> <leader>y "*y
+nnoremap <silent> <leader>Y "*Y
+
+nnoremap <silent> <leader>p "*p
+vnoremap <silent> <leader>p "*p
+nnoremap <silent> <leader>P "*P
 
 nnoremap <silent> <leader>f :echo expand('%:p')<CR>
 
