@@ -37,14 +37,12 @@ let &showbreak=""
 
 set foldlevel=999
 
-set diffopt+=internal,algorithm:patience
+set diffopt+=algorithm:patience,indent-heuristic
 
 augroup change_number_colour
     au!
     au VimEnter    * highlight LineNr guifg=Grey
-    au VimEnter    * highlight Cursor guibg=Green ctermbg=Green
     au Colorscheme * highlight LineNr guifg=Grey
-    au Colorscheme * highlight Cursor guibg=Green ctermbg=Green
 augroup END
 
 inoremap <F1>               <Nop>
