@@ -10,7 +10,8 @@ set writebackup backupdir^=~/vimfiles/backup
 set directory^=~/vimfiles/swap
 set undofile undodir^=~/vimfiles/undo
 set viminfofile=~/vimfiles/viminfo
-set wildmode=longest,list
+
+set wildmenu&
 
 if has('gui_running')
     set guioptions-=m
