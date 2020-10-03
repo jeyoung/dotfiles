@@ -50,7 +50,8 @@ inoremap <F1>               <Nop>
 inoremap <C-S>              <Esc>:update<Cr>
 nnoremap <C-S>              <Esc>:update<Cr>
 
-nnoremap <F1>               :ls<Cr>:b
+nnoremap <F1>               :ls<Cr>:b<Space>
+nnoremap <leader>b          :ls<Cr>:b<Space>
 nnoremap <silent> <F2>      :b#<Cr>
 
 nnoremap <silent> <BS>      :set hlsearch!<Cr>
