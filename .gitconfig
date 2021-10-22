@@ -64,9 +64,5 @@
     email = me@me
     name = Me me
 
-
-
-[winUpdater]
-	recentlySeenVersion = 2.21.0.windows.1
 [commit]
-	verbose = true
+    verbose = true
