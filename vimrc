@@ -1,13 +1,16 @@
-set shiftwidth=4 softtabstop=-1 ignorecase smartcase incsearch hlsearch visualbell smarttab shortmess-=S spelllang=en_gb wildmenu wildmode=longest:list,full completeopt-=preview
+set shiftwidth=4 softtabstop=-1 ignorecase smartcase incsearch hlsearch visualbell smarttab expandtab shortmess-=S updatetime=100 spelllang=en_gb wildmenu wildmode=longest:list,full completeopt-=preview
 set grepprg=rg\ -i\ --vimgrep
+
+set hidden undofile undodir=~/.vim/undo spellfile=~/.vim/custom.utf8.add directory=~/.vim/swap
 
 set showmatch smartindent autoindent
 set listchars=tab:>.,trail:.
-
-set undofile undodir=~/.vim directory=~/.vim hidden spellfile=~/.vim/custom.utf8.add
+let &showbreak="+++ "
 
 nnoremap <silent><BS> :nohl<Cr>
-nnoremap <silent><leader>b :ls<Cr>
+nnoremap <leader>b :ls<Cr>:b
+
+nnoremap <leader>e :Ex<Space>
 
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
@@ -41,10 +44,11 @@ augroup custom_filetypes
     au!
     au! BufRead *.log setlocal buftype=nowrite undolevels=10 noswapfile autoread syntax=OFF
     au! BufRead Makefile,*.mk setlocal shiftwidth=8
+    au! BufRead *.bas,*.BAS setlocal filetype=basic
 augroup END
 
 highlight WhitespaceEol ctermbg=red guibg=red
 match WhitespaceEol /\s\+$/
 
+filetype indent on
 filetype indent plugin on
-syntax on
