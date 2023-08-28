@@ -1,0 +1,24 @@
+# set keyboard layout
+setxkbmap -layout gb -option "compose:ralt"
+
+# update font paths
+xset fp rehash
+
+# merge resources
+xrdb -merge ~/.Xdefaults
+xrdb -merge ~/.Xresources
+
+# load colour calibration profile
+xcalib ~/.local/share/icc/SA300_350_360\ #1\ 2021-10-14\ 20-46\ 0.3127x\ 0.329y\ sRGB\ VF-S\ XYZLUT+MTX.icm
+
+# show the clock and OS view
+xclock -geometry 120x120-3+117 &
+xosview -geometry -20-20 &
+
+# Enable autolock
+xautolock -time 5 -locker xsecurelock -detectsleep &
+
+# Load wallpaper
+~/.fehbg &
+
+

@@ -1,0 +1,5 @@
+xosview*cpuFormat: all
+xosview*coretemp: True
+
+uxterm*font: xft:Inconsolata:Medium:size=14
+xterm*font: xft:Inconsolata:Medium:size=14
