@@ -77,7 +77,7 @@ OpaqueMoveSize -1
 Emulate Mwm
 
 # Window Placement
-Style "*" SmartPlacement
+Style "*" SmartPlacement, CleverPlacement
 
 # == Window decors and overrides ==
 Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon
@@ -90,6 +90,7 @@ Style gkrellm      NoTitle, Sticky, NoHandles, BorderWidth 7, NeverFocus
 Style Cell         NoTitle, NoHandles, BorderWidth 0, FPLenient
 Style "VIC-II"     NoTitle, NoHandles, BorderWidth 0, FPLenient
 Style feh          NoTitle
+Style "Picture-in-Picture" NoTitle, Sticky, WindowListSkip, StaysOnTop
 
 # == Mouse bindings ==
 # This will create window buttons and set their listeners
@@ -188,6 +189,7 @@ AddToMenu Window-Ops "Window Ops"      Title
 +                    "(De)Iconify"     Iconify
 +                    "(Un)Stick"       Stick
 +                    "(Un)Maximize"    Maximize
++		     "Identify"	       Module FvwmIdent
 +                    ""                Nop
 +                    "Delete"          Delete
 +                    "Close"           Close
