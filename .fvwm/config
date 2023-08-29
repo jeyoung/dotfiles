@@ -178,6 +178,11 @@ Key v       A   4   Exec    pavucontrol &
 # Show root menu from anywhere: Windows key + Escape
 Key Escape  A   4   Menu    RootMenu
 
+# Screenshot (all, window, region)
+Key Print   A	N    Exec exec scrot -d 1 &
+Key Print   A	M    Exec exec scrot -d 1 -u &
+Key Print   A	C    Exec exec scrot -d 1 -s &
+
 # == Define Menus
 
 # Root Window Menu for window operations
