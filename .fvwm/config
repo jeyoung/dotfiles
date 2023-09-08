@@ -62,7 +62,7 @@ TitleStyle Height 22
 Style * DecorateTransient
 
 # Focus follows mouse
-Style "*" SloppyFocus, FPClickRaisesFocused
+Style "*" SloppyFocus, FPClickRaisesFocused, FPGrabFocus
 
 # Snap windows to other windows _and_ screen edges
 Style * SnapAttraction 10 Screen
@@ -77,14 +77,14 @@ OpaqueMoveSize -1
 Emulate Mwm
 
 # Window Placement
-Style "*" SmartPlacement, CleverPlacement
+Style *   SmartPlacement, CleverPlacement
 
 # == Window decors and overrides ==
 Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon
-Style *            DepressableBorder 
-Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 7
-Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 7
-Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 7
+Style *            DepressableBorder
+Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 7
+Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 7
+Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 7
 Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 7
 Style gkrellm      NoTitle, Sticky, NoHandles, BorderWidth 7, NeverFocus
 Style Cell         NoTitle, NoHandles, BorderWidth 0, FPLenient
@@ -123,6 +123,13 @@ AddToFunc "InitFunction" I Module FvwmPager
 AddToFunc "InitFunction" I Exec xrdb -merge $HOME/.Xdefaults &
 AddToFunc "InitFunction" I Exec xrdb -merge $HOME/.Xresources &
 
+# Start some programs
+AddToFunc "InitFunction" I Exec tixati &
+AddToFunc "InitFunction" I Exec hexchat &
+AddToFunc "InitFunction" I Exec discord &
+AddToFunc "InitFunction" I Exec keepassxc &
+AddToFunc "InitFunction" I Exec xterm &
+
 # == Restart function ==
 # Pager needs to be restarted along with the WM
 AddToFunc "RestartFunction" I Module FvwmPager
@@ -140,6 +147,10 @@ AddToFunc TileIcons
 AddToFunc Move-or-Raise     "M" Raise
 +                           "M" Move
 +                           "D" Lower
+
+# Brign to top
+AddToFunc BringToTop
++   I WindowStyle StaysOnTop, NoTitle
 
 # Resize and raise a window
 AddToFunc Resize-or-Raise   "M" Raise
@@ -179,9 +190,18 @@ Key v       A   4   Exec    pavucontrol &
 Key Escape  A   4   Menu    RootMenu
 
 # Screenshot (all, window, region)
-Key Print   A	N    Exec exec scrot -d 1 &
-Key Print   A	M    Exec exec scrot -d 1 -u &
-Key Print   A	C    Exec exec scrot -d 1 -s &
+Key Print   A	N   Exec exec scrot -d 1 -e 'mv $f ~/Pictures/Screenshots' &
+Key Print   A	1   Exec exec scrot -d 1 -u -b -e 'mv $f ~/Pictures/Screenshots' &
+Key Print   A	C   Exec exec scrot -d 1 -s -b -e 'mv $f ~/Pictures/Screenshots' &
+
+# Lock
+Key l	    A   4   Exec exec xsecurelock &
+
+# Minimise current window
+Key m	    W	4   Iconify
+
+# Show the date
+Key d	    A   4   Exec xmessage -timeout 5 -nearmouse `date` &
 
 # == Define Menus
 
@@ -191,9 +211,12 @@ AddToMenu Window-Ops "Window Ops"      Title
 +                    "Resize"          Resize-or-Raise
 +                    "Raise"           Raise
 +                    "Lower"           Lower
++                    "Bring to Top"    BringToTop
 +                    "(De)Iconify"     Iconify
 +                    "(Un)Stick"       Stick
 +                    "(Un)Maximize"    Maximize
++		     ""		       Nop
++		     "Console"	       Module FvwmConsole -terminal xterm
 +		     "Identify"	       Module FvwmIdent
 +                    ""                Nop
 +                    "Delete"          Delete
@@ -205,6 +228,7 @@ AddToMenu Window-Ops "Window Ops"      Title
 # Menu for top left hand ("close") button on windows
 AddToMenu Window-Ops2 "Move"       Move
 +                     "Resize"     Resize
++                     "Bring to Top"    BringToTop
 +                     "(Un)Stick"  Stick
 +                     ""           Nop
 +                     "Delete"     Delete
@@ -229,7 +253,7 @@ AddToMenu SystemMenu
 +   "File Manager"  Exec pcmanfm &
 +   "OS View"       Exec xosview &
 +   ""              Nop
-+   "Restart FVWM"  Restart fvwm2
++   "Restart FVWM"  Restart fvwm3
 +   "Secure Lock"   Exec xsecurelock &
 +   "Sleep Mode"    Popup SuspendMenu #Suspend
 +   "Exit X11"      Popup QuitMenu #Quit
