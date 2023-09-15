@@ -7,61 +7,25 @@ ImagePath $HOME/.fvwm/icons:+
 # 2x3 desktops, no edgescroll, no labels.
 DeskTopSize 2 3
 EdgeScroll 0 0
-*FvwmPagerBack DimGray
-*FvwmPagerFore LightGray
-*FvwmPagerHilight White
-*FvwmPagerFont none
+*FvwmPagerHilight Violet
 *FvwmPagerFont none
 *FvwmPagerGeometry -2+2
 *FvwmPagerLabel FvwmPager
-*FvwmPager: WindowLabelFormat ""
 *FvwmPager: SolidSeparators
 
 # == Set up an iconbox ==
 Style * IconBox 1000x72+10-10, IconGrid 10 10, IconFill Bottom Left
-Style * IconBackgroundColorset 17
 Style * IconSize 72 72 -1 -1
-Style * IconBackgroundRelief 2
-Style * IconBackgroundPadding 2
-
-# == Window and icon colors ==
-# Menu colors are set in menu style below.
-
-# Active Windows
-ColorSet 16 fg Black, bg LightGray, fgsh LightGray
-Style * HilightColorSet 16
-
-# Inactive Windows
-# Also Colorset for icons, matches inactive windows
-Colorset 17 fg LightGray, bg DimGray, fgsh DimGray
-Style * Colorset 17
-
-# Menu
-Colorset 18 fg Black, bg LightGray, fgsh LightGray
-Colorset 19 fg White, bg DimGray, fgsh DimGray
-
-# == Icon styles and overrides ==
-Style "*" Icon xlogo.png
-Style xterm IconOverride, Icon winterm2.png
-Style Firefox IconOverride, Icon firefox.png
-Style xcalc IconOverride, Icon calc.png
 
 # == Fonts ==
-WindowFont "Shadow=1:xft:Liberation Sans:Bold:size=11"
+WindowFont "xft:Liberation Sans:Bold:size=11"
 IconFont "xft:Liberation Sans::size=9"
 MenuStyle * Font "xft:DejaVu Sans::size=10"
 
 # == Menu style: fast popups, filled submenu triangles ==
-MenuStyle * PopupImmediately, PopdownImmediately, PopupOffset 0 100
-MenuStyle * VerticalItemSpacing 3 3, VerticalTitleSpacing 3 3
-MenuStyle * HilightBack LightGray, ActiveFore Black
+MenuStyle * HilightBack, ActiveFore
 MenuStyle * TrianglesUseFore, TrianglesSolid
 MenuStyle * ItemFormat "%.4s%.1|%.5i%5.5l%5.5l%5.5r%5.5i%2.3>%1|"
-MenuStyle * MenuColorset 18, ActiveColorset 19
-
-# == Various styles ==
-# Force height of title bars
-TitleStyle Height 23
 
 # Decorate transient windows. A must for GTK apps' sub-windows.
 Style * DecorateTransient
@@ -72,30 +36,16 @@ Style "*" SloppyFocus, FPClickRaisesFocused, FPGrabFocus
 # Snap windows to other windows _and_ screen edges
 Style * SnapAttraction 10 Screen
 
-# 250ms = Click
-ClickTime 250
-
 # Enable solid window moving for all window sizes
 OpaqueMoveSize -1
 
-# Emulate Motif Window Manager hints
-Emulate Mwm
-
-# Window Placement
-#Style *   SmartPlacement, CleverPlacement
-Style * DumbPlacement
-
 # == Window decors and overrides ==
-Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon, HandleWidth 5
-Style *            !DepressableBorder
+Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon
 Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
 Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
 Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
 Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
-Style gkrellm      NoTitle, Sticky, NoHandles, BorderWidth 5, NeverFocus
-Style Cell         NoTitle, NoHandles, BorderWidth 0, FPLenient
-Style "VIC-II"     NoTitle, NoHandles, BorderWidth 0, FPLenient
-Style feh          NoTitle
+Style "feh"        NoTitle
 Style "Picture-in-Picture" NoTitle, Sticky, WindowListSkip, StaysOnTop
 
 # == Mouse bindings ==
@@ -217,9 +167,9 @@ AddToMenu Window-Ops "Window Ops"      Title
 +                    "Move"            Move-or-Raise
 +                    "Resize"          Resize-or-Raise
 +                    "Raise"           Raise
-+		     "Shade"	       WindowShade
 +                    "Lower"           Lower
 +                    "Keep on Top"     KeepOnTop
++		     "(Un)Shade"       WindowShade
 +                    "(De)Iconify"     Iconify
 +                    "(Un)Stick"       Stick
 +                    "(Un)Maximize"    Maximize
@@ -237,7 +187,7 @@ AddToMenu Window-Ops "Window Ops"      Title
 AddToMenu Window-Ops2 "Move"       Move
 +                     "Resize"     Resize
 +                     "Keep on Top"    KeepOnTop
-+                     "Shade"	       WindowShade
++                     "(Un)Shade"      WindowShade
 +                     "(Un)Stick"  Stick
 +                     ""           Nop
 +                     "Delete"     Delete
@@ -306,5 +256,3 @@ AddToMenu MediaMenu
 +   "VLC"           exec vlc &
 
 # == End of config file ==
-
-
