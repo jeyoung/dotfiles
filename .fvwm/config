@@ -7,9 +7,9 @@ ImagePath $HOME/.fvwm/icons:+
 # 2x3 desktops, no edgescroll, no labels.
 DeskTopSize 2 3
 EdgeScroll 0 0
-*FvwmPagerBack SlateBlue
-*FvwmPagerFore black
-*FvwmPagerHilight Orchid
+*FvwmPagerBack DimGray
+*FvwmPagerFore LightGray
+*FvwmPagerHilight White
 *FvwmPagerFont none
 *FvwmPagerFont none
 *FvwmPagerGeometry -2+2
@@ -28,13 +28,17 @@ Style * IconBackgroundPadding 2
 # Menu colors are set in menu style below.
 
 # Active Windows
-ColorSet 16 fg white, bg #C06077, fgsh #600011
+ColorSet 16 fg Black, bg LightGray, fgsh LightGray
 Style * HilightColorSet 16
 
 # Inactive Windows
 # Also Colorset for icons, matches inactive windows
-Colorset 17 fg black, bg #60A0C0, fgsh #81C1D1
+Colorset 17 fg LightGray, bg DimGray, fgsh DimGray
 Style * Colorset 17
+
+# Menu
+Colorset 18 fg Black, bg LightGray, fgsh LightGray
+Colorset 19 fg White, bg DimGray, fgsh DimGray
 
 # == Icon styles and overrides ==
 Style "*" Icon xlogo.png
@@ -50,13 +54,14 @@ MenuStyle * Font "xft:DejaVu Sans::size=10"
 # == Menu style: fast popups, filled submenu triangles ==
 MenuStyle * PopupImmediately, PopdownImmediately, PopupOffset 0 100
 MenuStyle * VerticalItemSpacing 3 3, VerticalTitleSpacing 3 3
-MenuStyle * HilightBack DarkSlateBlue, ActiveFore White
+MenuStyle * HilightBack LightGray, ActiveFore Black
 MenuStyle * TrianglesUseFore, TrianglesSolid
 MenuStyle * ItemFormat "%.4s%.1|%.5i%5.5l%5.5l%5.5r%5.5i%2.3>%1|"
+MenuStyle * MenuColorset 18, ActiveColorset 19
 
 # == Various styles ==
 # Force height of title bars
-TitleStyle Height 22
+TitleStyle Height 23
 
 # Decorate transient windows. A must for GTK apps' sub-windows.
 Style * DecorateTransient
@@ -77,16 +82,17 @@ OpaqueMoveSize -1
 Emulate Mwm
 
 # Window Placement
-Style *   SmartPlacement, CleverPlacement
+#Style *   SmartPlacement, CleverPlacement
+Style * DumbPlacement
 
 # == Window decors and overrides ==
-Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon
-Style *            DepressableBorder
-Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 7
-Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 7
-Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 7
-Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 7
-Style gkrellm      NoTitle, Sticky, NoHandles, BorderWidth 7, NeverFocus
+Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon, HandleWidth 5
+Style *            !DepressableBorder
+Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
+Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
+Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
+Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
+Style gkrellm      NoTitle, Sticky, NoHandles, BorderWidth 5, NeverFocus
 Style Cell         NoTitle, NoHandles, BorderWidth 0, FPLenient
 Style "VIC-II"     NoTitle, NoHandles, BorderWidth 0, FPLenient
 Style feh          NoTitle
@@ -149,8 +155,9 @@ AddToFunc Move-or-Raise     "M" Raise
 +                           "D" Lower
 
 # Brign to top
-AddToFunc BringToTop
+AddToFunc KeepOnTop
 +   I WindowStyle StaysOnTop, NoTitle
++   I Stick
 
 # Resize and raise a window
 AddToFunc Resize-or-Raise   "M" Raise
@@ -195,7 +202,7 @@ Key Print   A	1   Exec exec scrot -d 1 -u -b -e 'mv $f ~/Pictures/Screenshots' &
 Key Print   A	C   Exec exec scrot -d 1 -s -b -e 'mv $f ~/Pictures/Screenshots' &
 
 # Lock
-Key l	    A   4   Exec exec xsecurelock &
+Key l	    A   4   Exec exec xscreensaver-command --lock &
 
 # Minimise current window
 Key m	    W	4   Iconify
@@ -210,8 +217,9 @@ AddToMenu Window-Ops "Window Ops"      Title
 +                    "Move"            Move-or-Raise
 +                    "Resize"          Resize-or-Raise
 +                    "Raise"           Raise
++		     "Shade"	       WindowShade
 +                    "Lower"           Lower
-+                    "Bring to Top"    BringToTop
++                    "Keep on Top"     KeepOnTop
 +                    "(De)Iconify"     Iconify
 +                    "(Un)Stick"       Stick
 +                    "(Un)Maximize"    Maximize
@@ -228,7 +236,8 @@ AddToMenu Window-Ops "Window Ops"      Title
 # Menu for top left hand ("close") button on windows
 AddToMenu Window-Ops2 "Move"       Move
 +                     "Resize"     Resize
-+                     "Bring to Top"    BringToTop
++                     "Keep on Top"    KeepOnTop
++                     "Shade"	       WindowShade
 +                     "(Un)Stick"  Stick
 +                     ""           Nop
 +                     "Delete"     Delete
@@ -240,6 +249,7 @@ AddToMenu Window-Ops2 "Move"       Move
 AddToMenu RootMenu
 +   " Workspace Menu "  Title
 +   "Terminal"          Exec xterm &
++   "LibreOffice"       Exec libreoffice &
 +   "Graphics"          Popup GraphicsMenu
 +   "Internet"          Popup InternetMenu
 +   "Media"             Popup MediaMenu
@@ -254,7 +264,7 @@ AddToMenu SystemMenu
 +   "OS View"       Exec xosview &
 +   ""              Nop
 +   "Restart FVWM"  Restart fvwm3
-+   "Secure Lock"   Exec xsecurelock &
++   "Secure Lock"   Exec xscreensaver-command --lock &
 +   "Sleep Mode"    Popup SuspendMenu #Suspend
 +   "Exit X11"      Popup QuitMenu #Quit
 
@@ -267,7 +277,7 @@ AddToMenu SystemMenu
   # - Confirm suspend
   AddToMenu SuspendMenu "Sleep Mode?" Title
   +   "Cancel"      Nop
-  +   "Confirm"     Exec systemctl suspend && xsecurelock
+  +   "Confirm"     Exec systemctl suspend && xscreensaver-command --lock
 
 # Graphics
 AddToMenu GraphicsMenu
