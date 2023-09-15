@@ -7,13 +7,18 @@ ImagePath $HOME/.fvwm/icons:+
 # 2x3 desktops, no edgescroll, no labels.
 DeskTopSize 2 3
 EdgeScroll 0 0
-*FvwmPagerHilight Violet
+*FvwmPagerBack LightSlateGray
+*FvwmPagerHilight Orchid
 *FvwmPagerFont none
 *FvwmPagerGeometry -2+2
 *FvwmPagerLabel FvwmPager
 *FvwmPager: SolidSeparators
 
+# Colorsets
+Colorset 1 Background Gray30, Foreground Gray, fgsh
+
 # == Set up an iconbox ==
+Style * IconBackgroundColorset 1
 Style * IconBox 1000x72+10-10, IconGrid 10 10, IconFill Bottom Left
 Style * IconSize 72 72 -1 -1
 
@@ -31,7 +36,7 @@ MenuStyle * ItemFormat "%.4s%.1|%.5i%5.5l%5.5l%5.5r%5.5i%2.3>%1|"
 Style * DecorateTransient
 
 # Focus follows mouse
-Style "*" SloppyFocus, FPClickRaisesFocused, FPGrabFocus
+Style * SloppyFocus, FPClickRaisesFocused, FPGrabFocus
 
 # Snap windows to other windows _and_ screen edges
 Style * SnapAttraction 10 Screen
@@ -159,6 +164,12 @@ Key m	    W	4   Iconify
 
 # Show the date
 Key d	    A   4   Exec xmessage -timeout 5 -nearmouse `date` &
+
+# Show window menu
+Key Space   W   1   Menu Window-Ops2 Button1 0 100
+
+# Close current window
+Key F4     W    1   Close
 
 # == Define Menus
 
