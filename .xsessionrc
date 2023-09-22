@@ -1,23 +1,30 @@
 # set keyboard layout
-setxkbmap -layout gb -option "compose:ralt"
+setxkbmap -layout gb -option "compose:rctrl-altgr"
 
 # update font paths
+
+xset fp+ /usr/share/fonts/X11/100dpi
+xset fp+ /usr/share/fonts/X11/75dpi
+xset fp+ /usr/share/fonts/X11/misc
+xset fp+ /usr/share/fonts/X11/Type1
 xset fp rehash
+
+fc-cache
 
 # merge resources
 xrdb -merge ~/.Xdefaults
-xrdb -merge ~/.Xresources
 
 # load colour calibration profile
 xcalib ~/.local/share/icc/SA300_350_360\ #1\ 2021-10-14\ 20-46\ 0.3127x\ 0.329y\ sRGB\ VF-S\ XYZLUT+MTX.icm
 
 # show the clock and OS view
 xclock -geometry 120x120-3+117 &
-xosview -geometry -20-20 &
-xload -geometry 120x60-3+250 &
+#xclock -digital -strftime " %d %b %Y " -geometry 120x36-3+250 &
+#xload -geometry 120x60-3+300 &
+#xosview -geometry -12-12 &
 
 # Enable autolock
-xautolock -time 30 -locker xsecurelock -detectsleep &
+xscreensaver --nosplash &
 
 # Load wallpaper
 ~/.fehbg &

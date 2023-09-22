@@ -14,12 +14,15 @@ EdgeScroll 0 0
 *FvwmPagerLabel FvwmPager
 *FvwmPager: SolidSeparators
 
-# Colorsets
+# == Colorsets ==
+# = Active
+Colorset 0 Background LightSlateGray, Foreground White, fgsh
+# = Inactive
 Colorset 1 Background Gray30, Foreground Gray, fgsh
 
 # == Set up an iconbox ==
 Style * IconBackgroundColorset 1
-Style * IconBox 1000x72+10-10, IconGrid 10 10, IconFill Bottom Left
+Style * IconBox 72x1000+10-10, IconGrid 10 10, IconFill Bottom Left
 Style * IconSize 72 72 -1 -1
 
 # == Fonts ==
@@ -31,6 +34,7 @@ MenuStyle * Font "xft:DejaVu Sans::size=10"
 MenuStyle * HilightBack, ActiveFore
 MenuStyle * TrianglesUseFore, TrianglesSolid
 MenuStyle * ItemFormat "%.4s%.1|%.5i%5.5l%5.5l%5.5r%5.5i%2.3>%1|"
+MenuStyle * MenuColorset 0, ActiveColorset 1
 
 # Decorate transient windows. A must for GTK apps' sub-windows.
 Style * DecorateTransient
@@ -46,10 +50,11 @@ OpaqueMoveSize -1
 
 # == Window decors and overrides ==
 Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon
-Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
-Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
-Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, StaysOnTop, BorderWidth 5
-Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
+Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
+Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
+Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
+#Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
+Style "gkrellm"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
 Style "feh"        NoTitle
 Style "Picture-in-Picture" NoTitle, Sticky, WindowListSkip, StaysOnTop
 
@@ -90,6 +95,7 @@ AddToFunc "InitFunction" I Exec hexchat &
 AddToFunc "InitFunction" I Exec discord &
 AddToFunc "InitFunction" I Exec keepassxc &
 AddToFunc "InitFunction" I Exec xterm &
+AddToFunc "InitFunction" I Exec gkrellm &
 
 # == Restart function ==
 # Pager needs to be restarted along with the WM
