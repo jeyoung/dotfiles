@@ -7,6 +7,8 @@ ImagePath $HOME/.fvwm/icons:+
 # 2x3 desktops, no edgescroll, no labels.
 DeskTopSize 2 3
 EdgeScroll 0 0
+Style * EdgeMoveDelay 250
+Style * EdgeMoveResistance 20
 *FvwmPagerBack LightSlateGray
 *FvwmPagerHilight Orchid
 *FvwmPagerFont none
