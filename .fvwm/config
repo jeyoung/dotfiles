@@ -45,7 +45,7 @@ MenuStyle * MenuColorset 0, ActiveColorset 1
 Style * DecorateTransient
 
 # Focus follows mouse
-Style * ClickToFocus, FPGrabFocus
+Style * ClickToFocus, FPGrabFocus, FPReleaseFocus
 
 # Window placement
 Style * PositionPlacement UnderMouse
@@ -190,7 +190,7 @@ Key F4     W    1   Close
 AddToFunc WindowListFunc
 + I Focus
 
-Key Tab    A    M WindowList Root c c CurrentAtEnd, IconifiedAtEnd
+Key Tab    A    M WindowList Root c c SelectOnRelease Alt_L, CurrentAtEnd, IconifiedAtEnd
 
 # == Define Menus
 
