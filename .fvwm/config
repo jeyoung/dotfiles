@@ -1,5 +1,8 @@
 # Based on original by (L) Carl Svensson, https://datagubbe.se/fvwm
 
+# Set some variables
+InfoStoreAdd terminal xterm
+
 # == Set ImagePath ==
 ImagePath $HOME/.fvwm/icons:+
 
@@ -18,9 +21,9 @@ Style * EdgeMoveResistance 20
 
 # == Colorsets ==
 # = Active
-Colorset 0 Background LightSlateGray, Foreground White, fgsh
+Colorset 0 Background IndianRed, Foreground White, fgsh
 # = Inactive
-Colorset 1 Background Gray30, Foreground Gray, fgsh
+Colorset 1 Background DimGrey, Foreground Wheat, fgsh
 
 # == Set up an iconbox ==
 Style * IconBackgroundColorset 1
@@ -42,10 +45,13 @@ MenuStyle * MenuColorset 0, ActiveColorset 1
 Style * DecorateTransient
 
 # Focus follows mouse
-Style * SloppyFocus, FPClickRaisesFocused, FPGrabFocus
+Style * ClickToFocus, FPGrabFocus
+
+# Window placement
+Style * PositionPlacement UnderMouse
 
 # Snap windows to other windows _and_ screen edges
-Style * SnapAttraction 10 Screen
+Style * SnapAttraction 5 Screen
 
 # Enable solid window moving for all window sizes
 OpaqueMoveSize -1
@@ -55,9 +61,7 @@ Style *            Title, Handles, !MWMFunctions, NoDecorHint, StickyIcon
 Style "FvwmPager"  NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
 Style "xload"      NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
 Style "xclock"     NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
-#Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
-Style "gkrellm"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5, NeverFocus
-Style "feh"        NoTitle
+Style "xosview"    NoTitle, Sticky, WindowListSkip, NoHandles, BorderWidth 5
 Style "Picture-in-Picture" NoTitle, Sticky, WindowListSkip, StaysOnTop
 
 # == Mouse bindings ==
@@ -96,8 +100,7 @@ AddToFunc "InitFunction" I Exec tixati &
 AddToFunc "InitFunction" I Exec hexchat &
 AddToFunc "InitFunction" I Exec discord &
 AddToFunc "InitFunction" I Exec keepassxc &
-AddToFunc "InitFunction" I Exec xterm &
-AddToFunc "InitFunction" I Exec gkrellm &
+AddToFunc "InitFunction" I Exec $[infostore.terminal] &
 
 # == Restart function ==
 # Pager needs to be restarted along with the WM
@@ -159,6 +162,9 @@ Key v       A   4   Exec    pavucontrol &
 # Show root menu from anywhere: Windows key + Escape
 Key Escape  A   4   Menu    RootMenu
 
+# Launch terminal
+Key r       A   4   Exec $[infostore.terminal] &
+
 # Screenshot (all, window, region)
 Key Print   A	N   Exec exec scrot -d 1 -e 'mv $f ~/Pictures/Screenshots' &
 Key Print   A	1   Exec exec scrot -d 1 -u -b -e 'mv $f ~/Pictures/Screenshots' &
@@ -168,7 +174,7 @@ Key Print   A	C   Exec exec scrot -d 1 -s -b -e 'mv $f ~/Pictures/Screenshots' &
 Key l	    A   4   Exec exec xscreensaver-command --lock &
 
 # Minimise current window
-Key m	    W	4   Iconify
+Key m	    A	4   Iconify
 
 # Show the date
 Key d	    A   4   Exec xmessage -timeout 5 -nearmouse `date` &
@@ -178,6 +184,13 @@ Key Space   W   1   Menu Window-Ops2 Button1 0 100
 
 # Close current window
 Key F4     W    1   Close
+
+# Alt-Tab
+    # Modify WindowListFunc to ensure window gets mouse focus
+AddToFunc WindowListFunc
++ I Focus
+
+Key Tab    A    M WindowList Root c c CurrentAtEnd, IconifiedAtEnd
 
 # == Define Menus
 
@@ -193,7 +206,7 @@ AddToMenu Window-Ops "Window Ops"      Title
 +                    "(Un)Stick"       Stick
 +                    "(Un)Maximize"    Maximize
 +		     ""		       Nop
-+		     "Console"	       Module FvwmConsole -terminal xterm
++		     "Console"	       Module FvwmConsole -terminal $[infostore.terminal]
 +		     "Identify"	       Module FvwmIdent
 +                    ""                Nop
 +                    "Delete"          Delete
@@ -203,22 +216,23 @@ AddToMenu Window-Ops "Window Ops"      Title
 +                    "Refresh Screen"  Refresh
 
 # Menu for top left hand ("close") button on windows
-AddToMenu Window-Ops2 "Move"       Move
-+                     "Resize"     Resize
-+                     "Keep on Top"    KeepOnTop
-+                     "(Un)Shade"      WindowShade
-+                     "(Un)Stick"  Stick
-+                     ""           Nop
-+                     "Delete"     Delete
-+                     "Close"      Close
-+                     "Destroy"    Destroy
+AddToMenu Window-Ops2 "Move"         Move
++                     "Resize"       Resize
++                     "Keep on Top"  KeepOnTop
++                     "(Un)Shade"    WindowShade
++                     "(Un)Stick"    Stick
++                     ""             Nop
++                     "Delete"       Delete
++                     "Close"        Close
++                     "Destroy"      Destroy
 
 # This is the left-click Root Menu, for launching applications.
 # It will open sub menus defined below.
 AddToMenu RootMenu
 +   " Workspace Menu "  Title
-+   "Terminal"          Exec xterm &
++   "Terminal"          Exec $[infostore.terminal] &
 +   "LibreOffice"       Exec libreoffice &
++   "3D Printing"       Popup 3DPrintingMenu
 +   "Graphics"          Popup GraphicsMenu
 +   "Internet"          Popup InternetMenu
 +   "Media"             Popup MediaMenu
@@ -229,6 +243,7 @@ AddToMenu RootMenu
 # Submenu: System tools
 AddToMenu SystemMenu
 +   "Audio Panel"   Exec pavucontrol &
++   "Bluetooth Manager" Exec blueman-manager &
 +   "File Manager"  Exec pcmanfm &
 +   "OS View"       Exec xosview &
 +   ""              Nop
@@ -248,26 +263,32 @@ AddToMenu SystemMenu
   +   "Cancel"      Nop
   +   "Confirm"     Exec systemctl suspend && xscreensaver-command --lock
 
+# 3D Printing
+AddToMenu 3DPrintingMenu
++   "FreeCAD"		exec freecad &
++   "UltiMaker Cura"	exec /home/jeyoung/Applications/UltiMaker-Cura-5.4.0-linux-modern.AppImage &
+
 # Graphics
 AddToMenu GraphicsMenu
 +   "GIMP"          exec gimp &
 +   "RawTherapee"   exec rawtherapee &
++   "Sweet Home 3D" exec sweethome3d &
 +   "VueScan"       exec vuescan &
 
 # Internet and Surf menu
 AddToMenu InternetMenu
 +   "Discord"       exec discord &
-+   "Firefox"       exec firefox &
++   "Firefox"       exec env MOZ_X11_EGL=1 firefox &
 +   "HexChat"       exec hexchat &
 +   "KeePassXC"     exec keepassxc &
 +   "Tixati"        exec tixati &
 
 # Various utilities and applications menu
 AddToMenu UtilitiesMenu
-+   "PDF Reader"     exec evince &
++   "PDF Reader"       exec evince &
 +   "Printer Settings" exec system-config-printer &
-+   "XCalc"          exec xcalc &
-+   "XFontSel"       exec xfontsel &
++   "XCalc"            exec xcalc &
++   "XFontSel"         exec xfontsel &
 
 # Audio/video software menu
 AddToMenu MediaMenu
@@ -275,3 +296,4 @@ AddToMenu MediaMenu
 +   "VLC"           exec vlc &
 
 # == End of config file ==
+
